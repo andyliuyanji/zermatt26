@@ -31,9 +31,8 @@ git add . && git commit -m "更新內容" && git push
 | 12/2 (三) | ☕ 休息日 · Gornergrat |
 | 12/3 (四) | ⛷️ 滑雪 Day 3 |
 | 12/4 (五) | 🚗 Simplon Pass → Lake Maggiore |
-| 12/5 (六) | 🚗 米蘭觀光 |
+| 12/5 (六) | 🛥️ Lake Maggiore → 🚗 米蘭觀光 |
 | 12/6 (日) | ✈ CX234 MXP→HKG |
-| 12/6 (日) | MXP → HKG (CX234) |
 
 ## 航班
 
