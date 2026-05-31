@@ -25,6 +25,11 @@ body { font-family: -apple-system, BlinkMacSystemFont, "PingFang TC", "Noto Sans
 .map-panel .panel-label { background: #fff; padding: 5px 10px; font-weight: 700; font-size: 0.75rem; color: #1e3a5f; border-bottom: 1px solid #e2e8f0; display: flex; align-items: center; gap: 6px; }
 #map { height: calc(100% - 30px); border: none; z-index: 1; }
 
+/* Draggable divider */
+.divider { height: 16px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; cursor: row-resize; touch-action: none; -webkit-tap-highlight-color: transparent; z-index: 20; }
+.divider .grip { width: 42px; height: 5px; background: #94a3b8; border-radius: 3px; transition: background 0.15s, width 0.15s; }
+.divider:active .grip, .divider.dragging .grip { width: 56px; background: #64748b; }
+
 .map-legend { position: absolute; bottom: 6px; right: 6px; z-index: 1000; background: rgba(255,255,255,0.92); padding: 4px 8px; border-radius: 6px; box-shadow: 0 1px 6px rgba(0,0,0,0.12); font-size: 0.65rem; line-height: 1.7; }
 .legend-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 4px; vertical-align: middle; }
 .legend-line { display: inline-block; width: 18px; height: 2px; margin-right: 4px; vertical-align: middle; border-radius: 1px; }
@@ -99,6 +104,7 @@ footer a { color: #2d6a9f; text-decoration: none; }
   .map-legend { bottom: 16px; right: 16px; padding: 8px 12px; font-size: 0.75rem; line-height: 1.9; }
   .bottom-sheet { flex: none; background: transparent; border-radius: 0; margin-top: 0; box-shadow: none; }
   .sheet-handle { display: none; }
+  .divider { display: none; }
   .itinerary-panel { padding: 0 0 40px 18px; overflow-y: auto; }
   .section-title { font-size: 1.2rem; margin: 24px 0 14px; }
   .day-card { padding: 16px 20px; margin-bottom: 12px; border-radius: 10px; }
@@ -160,6 +166,8 @@ footer a { color: #2d6a9f; text-decoration: none; }
       <div><span class="legend-line" style="background:#10b981;"></span> 自駕路線</div>
     </div>
   </div>
+
+  <div class="divider"><div class="grip"></div></div>
 
   <!-- Bottom sheet -->
     <div class="bottom-sheet">
@@ -630,6 +638,47 @@ document.querySelectorAll('.day-card').forEach(function(card) {
     markerLayers.forEach(function(m) { m.setZIndexOffset(0); m.setOpacity(1); });
   });
 });
+
+/* ===== DRAGGABLE DIVIDER ===== */
+(function() {
+  var divider = document.querySelector('.divider');
+  var mapPanel = document.querySelector('.map-panel');
+  if (!divider || !mapPanel) return;
+
+  var startY, startHeight, dragging = false;
+
+  function onStart(e) {
+    dragging = true;
+    divider.classList.add('dragging');
+    startY = e.touches ? e.touches[0].clientY : e.clientY;
+    startHeight = mapPanel.offsetHeight;
+    e.preventDefault();
+  }
+
+  function onMove(e) {
+    if (!dragging) return;
+    var y = e.touches ? e.touches[0].clientY : e.clientY;
+    var dy = y - startY;
+    var newH = startHeight + dy;
+    var vh = window.innerHeight * 0.01;
+    var minH = 18 * vh;
+    var maxH = 72 * vh;
+    newH = Math.max(minH, Math.min(maxH, newH));
+    mapPanel.style.height = newH + 'px';
+  }
+
+  function onEnd() {
+    dragging = false;
+    divider.classList.remove('dragging');
+  }
+
+  divider.addEventListener('touchstart', onStart, { passive: false });
+  divider.addEventListener('mousedown', onStart);
+  document.addEventListener('touchmove', onMove, { passive: false });
+  document.addEventListener('mousemove', onMove);
+  document.addEventListener('touchend', onEnd);
+  document.addEventListener('mouseup', onEnd);
+})();
 </script>
 </body>
 </html>
