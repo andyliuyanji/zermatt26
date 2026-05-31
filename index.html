@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zermatt 滑雪自駕旅行計劃 — 香港出發 2026</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, "PingFang TC", "Noto Sans TC", "Microsoft YaHei", sans-serif; background: #f0f4f8; color: #1a202c; line-height: 1.6; }
+
+/* Header */
+.hero { background: linear-gradient(135deg, #1e3a5f 0%, #2d6a9f 40%, #4a9db5 70%, #8fc9b9 100%); color: #fff; padding: 48px 24px 40px; text-align: center; }
+.hero h1 { font-size: 2.2rem; font-weight: 800; margin-bottom: 8px; letter-spacing: -0.5px; }
+.hero .subtitle { font-size: 1.05rem; opacity: 0.9; margin-bottom: 16px; }
+.hero .flags { font-size: 2rem; margin-bottom: 12px; letter-spacing: 8px; }
+.hero .date-badge { display: inline-block; background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.3); border-radius: 24px; padding: 6px 20px; font-size: 0.95rem; }
+
+/* Quick stats */
+.quick-stats { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; padding: 20px 24px; max-width: 900px; margin: -20px auto 0; position: relative; z-index: 2; }
+.quick-stats .stat { background: #fff; border-radius: 12px; padding: 14px 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); font-size: 0.9rem; text-align: center; min-width: 100px; }
+.stat strong { display: block; font-size: 1.3rem; color: #1e3a5f; }
+
+/* Layout */
+.main-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 0; max-width: 1400px; margin: 24px auto 0; padding: 0 16px; }
+@media (max-width: 900px) { .main-layout { grid-template-columns: 1fr; } }
+
+/* Map */
+.map-panel { position: sticky; top: 16px; height: calc(100vh - 48px); }
+@media (max-width: 900px) { .map-panel { position: relative; top: auto; height: 50vh; } }
+.map-panel .panel-label { background: #fff; padding: 8px 16px; border-radius: 10px 10px 0 0; font-weight: 700; font-size: 0.9rem; color: #1e3a5f; border: 1px solid #e2e8f0; border-bottom: none; display: flex; align-items: center; gap: 8px; }
+#map { height: calc(100% - 41px); border-radius: 0 0 10px 10px; border: 1px solid #e2e8f0; z-index: 1; }
+
+/* Legend */
+.map-legend { position: absolute; bottom: 20px; right: 20px; z-index: 1000; background: #fff; padding: 10px 14px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.15); font-size: 0.8rem; line-height: 2; }
+.legend-dot { display: inline-block; width: 12px; height: 12px; border-radius: 50%; margin-right: 6px; vertical-align: middle; }
+.legend-line { display: inline-block; width: 24px; height: 3px; margin-right: 6px; vertical-align: middle; border-radius: 2px; }
+
+/* Custom marker styles */
+.custom-marker { display: flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 50%; color: #fff; font-weight: 700; font-size: 0.75rem; border: 3px solid #fff; box-shadow: 0 2px 6px rgba(0,0,0,0.3); }
+.marker-swiss { background: #d32f2f; }
+.marker-italy { background: #009246; }
+.marker-ski { background: #f59e0b; color: #333; }
+.marker-ski-note { background: #f59e0b; }
+.marker-transport { background: #555; }
+.marker-hk { background: #ba0c2f; }
+
+/* Leaflet popup */
+.leaflet-popup-content { margin: 10px 14px; font-size: 0.9rem; line-height: 1.5; min-width: 220px; }
+.leaflet-popup-content img { width: 100%; height: 130px; object-fit: cover; border-radius: 6px; margin-bottom: 8px; background: #e2e8f0; }
+.leaflet-popup-content .popup-title { font-weight: 700; font-size: 1rem; color: #1e3a5f; }
+.leaflet-popup-content .popup-subtitle { font-size: 0.8rem; color: #64748b; margin-bottom: 6px; }
+.leaflet-popup-content .popup-link { display: inline-block; margin-top: 8px; color: #2d6a9f; font-weight: 600; font-size: 0.85rem; text-decoration: none; }
+.leaflet-popup-content .popup-link:hover { text-decoration: underline; }
+.popup-img-fallback { display: flex; align-items: center; justify-content: center; width: 100%; height: 130px; background: #e2e8f0; border-radius: 6px; margin-bottom: 8px; font-size: 2.5rem; color: #94a3b8; }
+
+/* Itinerary panel */
+.itinerary-panel { padding: 0 0 40px 20px; overflow-y: auto; }
+@media (max-width: 900px) { .itinerary-panel { padding: 16px 16px 40px; } }
+.section-title { font-size: 1.3rem; font-weight: 700; color: #1e3a5f; margin: 28px 0 16px; display: flex; align-items: center; gap: 8px; }
+.section-title i { color: #2d6a9f; }
+
+/* Day card */
+.day-card { background: #fff; border-radius: 12px; padding: 20px 24px; margin-bottom: 14px; box-shadow: 0 1px 8px rgba(0,0,0,0.06); border-left: 5px solid #ccc; transition: box-shadow 0.2s, transform 0.15s; cursor: pointer; }
+.day-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.1); transform: translateY(-1px); }
+.day-card:active { transform: scale(0.995); }
+.day-card .clickable-place { cursor: pointer; border-bottom: 1px dashed #94a3b8; transition: color 0.15s, border-color 0.15s; }
+.day-card .clickable-place:hover { color: #2d6a9f; border-bottom-color: #2d6a9f; }
+.day-card.day-sweden { border-left-color: #d32f2f; }
+.day-card.day-finland { border-left-color: #009246; }
+.day-card.day-estonia { border-left-color: #0072ce; }
+.day-card.day-latvia { border-left-color: #9e3039; }
+.day-card.day-transit { border-left-color: #f59e0b; }
+.day-card.day-flight { border-left-color: #8b5cf6; }
+.day-header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+.day-num { font-size: 0.8rem; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 1px; }
+.day-date { font-size: 1.1rem; font-weight: 800; color: #1e3a5f; }
+.day-country { display: inline-block; padding: 3px 12px; border-radius: 16px; font-size: 0.75rem; font-weight: 700; color: #fff; }
+.country-swiss { background: #d32f2f; }
+.country-italy { background: #009246; }
+.country-estonia { background: #0072ce; }
+.country-latvia { background: #9e3039; }
+.country-transit { background: #64748b; }
+.day-route { font-size: 0.85rem; color: #475569; margin-bottom: 10px; }
+.day-activities { list-style: none; padding: 0; }
+.day-activities li { padding: 5px 0; font-size: 0.9rem; display: flex; align-items: flex-start; gap: 8px; }
+.day-activities li i { color: #2d6a9f; width: 18px; text-align: center; margin-top: 3px; flex-shrink: 0; }
+.day-transport { margin-top: 10px; padding: 8px 12px; background: #f1f5f9; border-radius: 8px; font-size: 0.85rem; display: flex; align-items: center; gap: 8px; color: #475569; }
+.day-transport i { color: #f59e0b; }
+
+/* Transport overview */
+.transport-section { max-width: 1400px; margin: 0 auto; padding: 0 16px 40px; }
+.transport-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; }
+.transport-card { background: #fff; border-radius: 12px; padding: 20px 24px; box-shadow: 0 1px 8px rgba(0,0,0,0.06); }
+.transport-card h4 { font-size: 1rem; font-weight: 700; color: #1e3a5f; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+.transport-card .flight-row { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid #f1f5f9; font-size: 0.88rem; }
+.flight-row .flight-no { font-weight: 700; color: #2d6a9f; font-family: monospace; font-size: 0.9rem; }
+.flight-row .flight-time { color: #64748b; font-size: 0.8rem; }
+.transport-card .note { font-size: 0.8rem; color: #94a3b8; margin-top: 8px; }
+
+/* Footer */
+footer { text-align: center; padding: 32px 16px; color: #94a3b8; font-size: 0.8rem; border-top: 1px solid #e2e8f0; max-width: 1400px; margin: 0 auto; }
+footer a { color: #2d6a9f; text-decoration: none; }
+footer a:hover { text-decoration: underline; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="flags">🇭🇰 ✈ 🇨🇭 🚗 ⛷️ 🚗 🇮🇹 ✈ 🇭🇰</div>
+  <h1>Zermatt 滑雪 · 9日自駕旅行計劃</h1>
+  <p class="subtitle">香港出發 — 蘇黎世 · Zermatt · 米蘭</p>
+  <span class="date-badge">📅 2026年11月28日 (六) – 12月6日 (日)</span>
+</div>
+
+<div class="quick-stats">
+  <div class="stat"><strong>2</strong>個國家</div>
+  <div class="stat"><strong>9</strong>天行程</div>
+  <div class="stat"><strong>2</strong>程直航</div>
+  <div class="stat"><strong>3</strong>天滑雪</div>
+  <div class="stat"><strong>4</strong>天Zermatt</div>
+  <div class="stat"><strong>~500km</strong>自駕里程</div>
+</div>
+
+<!-- Main layout: Map + Itinerary -->
+<div class="main-layout">
+  <!-- Map panel -->
+  <div class="map-panel">
+    <div class="panel-label"><i class="fa-solid fa-map-location-dot"></i> 互動地圖 — 瑞士 · 意大利自駕路線</div>
+    <div id="map"></div>
+    <div class="map-legend">
+      <div><span class="legend-dot" style="background:#d32f2f;"></span> 瑞典景點</div>
+      <div><span class="legend-dot" style="background:#d32f2f;"></span> 芬蘭景點</div>
+      <div><span class="legend-dot" style="background:#009246;"></span> 愛沙尼亞景點</div>
+      <div><span class="legend-dot" style="background:#9e3039;"></span> 拉脫維亞景點</div>
+      <div><span class="legend-line" style="background:#8b5cf6; border: 1px dashed #8b5cf6; background: transparent; height:0; border-top:2px dashed #8b5cf6;"></span> 飛行路線</div>
+      <div><span class="legend-line" style="background:#f59e0b; border: 1px dashed #f59e0b; background: transparent; height:0; border-top:2px dashed #f59e0b;"></span> 渡輪航線</div>
+      <div><span class="legend-line" style="background:#10b981;"></span> 自駕路線</div>
+    </div>
+  </div>
+
+  <!-- Itinerary panel -->
+  <div class="itinerary-panel">
+    <div class="section-title"><i class="fa-solid fa-calendar-days"></i> 每日行程</div>
+
+    <!-- Day 1 -->
+    <div class="day-card day-flight">
+      <div class="day-header">
+        <div><span class="day-num">Day 1</span><br><span class="day-date">11月28日 星期六</span></div>
+        <span class="day-country country-transit">✈ 飛行中</span>
+      </div>
+      <div class="day-route">🇭🇰 香港 → 🇨🇭 蘇黎世</div>
+      <ul class="day-activities">
+        <li><i class="fa-solid fa-plane-departure"></i> <strong>CX383</strong> 香港(HKG) 00:45 起飛 → 蘇黎世(ZRH) 07:30<br><small style="color:#64748b">Cathay Pacific Airbus A350-900 · 飛行時間 ~13小時</small></li>
+      </ul>
+      <div class="day-transport"><i class="fa-solid fa-clock"></i> 夜機出發 · 同日清晨抵達 · 香港/蘇黎世時差 -7hr (冬季)</div>
+    </div>
+
+    <!-- Day 2 -->
+    <div class="day-card day-sweden">
+      <div class="day-header">
+        <div><span class="day-num">Day 2</span><br><span class="day-date">11月29日 星期日</span></div>
+        <span class="day-country country-swiss">🇨🇭 蘇黎世</span>
+      </div>
+      <div class="day-route">蘇黎世全日遊 · 傍晚取車前往 Visp</div>
+      <ul class="day-activities">
+        <li><i class="fa-solid fa-plane-arrival"></i> 07:30 抵達蘇黎世機場 ZRH</li>
+        <li><i class="fa-solid fa-city"></i> <strong>蘇黎世舊城 Altstadt</strong> — Lindenhof 觀景台俯瞰利馬特河 · Grossmünster 大教堂雙塔</li>
+        <li><i class="fa-solid fa-candy-cane"></i> <strong>Lindt Home of Chocolate</strong> — 瑞士蓮巧克力博物館 · 全球最大巧克力噴泉 (9米高)</li>
+        <li><i class="fa-solid fa-water"></i> 蘇黎世湖濱大道散步 · Bahnhofstrasse 名店街</li>
+        <li><i class="fa-solid fa-car"></i> 傍晚取車 · 駕車前往 Visp 地區 (約2.5小時)</li>
+      </ul>
+      <div class="day-transport"><i class="fa-solid fa-clock"></i> ✈ 清晨抵達 · 🚗 蘇黎世→Visp ~160km / 2.5hr</div>
+    </div>
+
+    <!-- Day 3 -->
+    <div class="day-card day-sweden">
+      <div class="day-header">
+        <div><span class="day-num">Day 3</span><br><span class="day-date">11月30日 星期一</span></div>
+        <span class="day-country country-swiss">🇨🇭 Zermatt</span>
+      </div>
+      <div class="day-route">Visp → Täsch → Zermatt · 進入無車小鎮</div>
+      <ul class="day-activities">
+        <li><i class="fa-solid fa-car"></i> 駕車 Visp → Täsch (30分鐘)</li>
+        <li><i class="fa-solid fa-square-parking"></i> <strong>Täsch 停車場</strong> — Zermatt 是無車小鎮 · 私家車必須停在此處 (~CHF 24/2天)</li>
+        <li><i class="fa-solid fa-train"></i> <strong>穿梭火車</strong> Täsch → Zermatt (12分鐘 · 每20分鐘一班 · ~CHF 17來回)</li>
+        <li><i class="fa-solid fa-person-walking"></i> 下午探索 <strong>Zermatt 小鎮</strong> — 傳統木屋 Hinterdorf · 馬特洪峰博物館</li>
+        <li><i class="fa-solid fa-mountain-sun"></i> 傍晚：Kirchbrücke 橋拍攝馬特洪峰黃金時刻</li>
+      </ul>
+      <div class="day-transport"><i class="fa-solid fa-clock"></i> 🚗 Visp→Täsch 30min · 🚂 Täsch→Zermatt 12min · ⚠️ Zermatt 禁止汽車進入</div>
+    </div>
+
+    <!-- Day 4 -->
+    <div class="day-card day-estonia">
+      <div class="day-header">
+        <div><span class="day-num">Day 4</span><br><span class="day-date">12月1日 星期二</span></div>
+        <span class="day-country country-estonia">⛷️ 滑雪 Day 1</span>
+      </div>
+      <div class="day-route">⛷️ Matterhorn Glacier Paradise 冰川滑雪</div>
+      <ul class="day-activities">
+        <li><i class="fa-solid fa-cable-car"></i> <strong>Matterhorn Glacier Paradise</strong> — 歐洲最高纜車站 (3,883m)</li>
+        <li><i class="fa-solid fa-person-skiing"></i> 冰川滑雪區：長達 25km 雪道 · 全年可滑 · 適合各級滑雪者</li>
+        <li><i class="fa-solid fa-flag-checkered"></i> 可加購 International Pass 滑到意大利 Cervinia 一側</li>
+        <li><i class="fa-solid fa-mountain"></i> 360° 觀景台：俯瞰 38 座 4,000m+ 山峰 + 阿爾卑斯最長冰川</li>
+        <li><i class="fa-solid fa-utensils"></i> 山頂餐廳午餐 · 瑞士芝士火鍋 Fondue</li>
+      </ul>
+      <div class="day-transport"><i class="fa-solid fa-clock"></i> 🚠 Zermatt→冰川天堂 約45分鐘 · 11月底雪深 ~150cm · 雪質優良</div>
+    </div>
+
+    <!-- Day 5 -->
+    <div class="day-card day-estonia">
+      <div class="day-header">
+        <div><span class="day-num">Day 5</span><br><span class="day-date">12月2日 星期三</span></div>
+        <span class="day-country country-estonia">⛷️ 滑雪 Day 2</span>
+      </div>
+      <div class="day-route">⛷️ Sunnegga · Rothorn 滑雪區</div>
+      <ul class="day-activities">
+        <li><i class="fa-solid fa-train-subway"></i> <strong>Sunnegga</strong> 地下纜車 — 從鎮中心直達 2,288m (僅3分鐘)</li>
+        <li><i class="fa-solid fa-person-skiing"></i> Rothorn 區域滑雪 — 多條紅道和藍道 · 適合中級滑雪者</li>
+        <li><i class="fa-solid fa-camera"></i> <strong>Rothorn 觀景台</strong> (3,103m)：馬特洪峰最佳拍攝角度之一</li>
+        <li><i class="fa-solid fa-mug-hot"></i> 山中小木屋休息 · 熱朱古力配瑞士傳統蛋糕</li>
+      </ul>
+      <div class="day-transport"><i class="fa-solid fa-clock"></i> 🚃 地下纜車 3分鐘 · 纜車接駁上 Rothorn ~20分鐘</div>
+    </div>
+
+    <!-- Day 6 -->
+    <div class="day-card day-transit">
+      <div class="day-header">
+        <div><span class="day-num">Day 6</span><br><span class="day-date">12月3日 星期四</span></div>
+        <span class="day-country country-transit">☕ 休息日</span>
+      </div>
+      <div class="day-route">☕ 滑雪休息日 · Gornergrat 觀景 + SPA</div>
+      <ul class="day-activities">
+        <li><i class="fa-solid fa-train"></i> <strong>Gornergrat 觀景火車</strong> — 33分鐘爬升 1,469m 至 3,089m (建議搭 7:00 首班 · 坐右側)</li>
+        <li><i class="fa-solid fa-camera-retro"></i> <strong>Riffelsee 湖</strong> — 著名馬特洪峰倒影拍攝點 (早上風平浪靜 · 午後起風)</li>
+        <li><i class="fa-solid fa-store"></i> Zermatt 小鎮逛街 · 瑞士名錶、巧克力手信</li>
+        <li><i class="fa-solid fa-spa"></i> 午後 SPA 放鬆 — 推薦 Mountain Spa 或酒店溫泉</li>
+        <li><i class="fa-solid fa-utensils"></i> 晚餐：<strong>Chez Vrony</strong> 或 <strong>Findlerhof</strong> 傳統瑞士山中小屋料理</li>
+      </ul>
+      <div class="day-transport"><i class="fa-solid fa-clock"></i> 🚂 Gornergrat 來回約 2hr · 觀景台停留 1-2hr · 全日輕鬆節奏</div>
+    </div>
+
+    <!-- Day 7 -->
+    <div class="day-card day-estonia">
+      <div class="day-header">
+        <div><span class="day-num">Day 7</span><br><span class="day-date">12月4日 星期五</span></div>
+        <span class="day-country country-estonia">⛷️ 滑雪 Day 3</span>
+      </div>
+      <div class="day-route">⛷️ 最後滑雪日 → 傍晚前往 Brig</div>
+      <ul class="day-activities">
+        <li><i class="fa-solid fa-person-skiing"></i> 自由選擇最愛滑雪區重溫 (推薦再次前往 Matterhorn Glacier Paradise)</li>
+        <li><i class="fa-solid fa-flag-checkered"></i> 或挑戰 International Run 滑到意大利 Cervinia (需國際滑雪證)</li>
+        <li><i class="fa-solid fa-train"></i> 傍晚搭乘穿梭火車返回 Täsch 取車 (12分鐘)</li>
+        <li><i class="fa-solid fa-car"></i> 駕車前往 Brig 或 Domodossola 住宿 (約1.5小時)</li>
+      </ul>
+      <div class="day-transport"><i class="fa-solid fa-clock"></i> 🚂 Zermatt→Täsch 12min · 🚗 Täsch→Brig ~1hr · 準備明日翻越 Alps</div>
+    </div>
+
+    <!-- Day 8 -->
+    <div class="day-card day-latvia">
+      <div class="day-header">
+        <div><span class="day-num">Day 8</span><br><span class="day-date">12月5日 星期六</span></div>
+        <span class="day-country country-latvia">🚗 自駕</span>
+      </div>
+      <div class="day-route">🚗 Simplon Pass → Lake Maggiore → 米蘭</div>
+      <ul class="day-activities">
+        <li><i class="fa-solid fa-mountain"></i> <strong>Simplon Pass</strong> (2,005m) — 拿破崙修建的阿爾卑斯山道 · 冬季雪景壯觀</li>
+        <li><i class="fa-solid fa-bridge"></i> <strong>Ganter Bridge</strong> — 標誌性 S 型橋樑，跨越 150m 深谷 · 瑞士最著名公路橋之一</li>
+        <li><i class="fa-solid fa-archway"></i> Simplon Hospiz 歷史高山旅館 · 9m 石鷹紀念碑 (二戰紀念)</li>
+        <li><i class="fa-solid fa-water"></i> <strong>Lake Maggiore · Stresa</strong> — 湖濱午飯 · Isola Bella 島皇宮花園</li>
+        <li><i class="fa-solid fa-car"></i> 午後駕車 Stresa → 米蘭 (約1.5小時)</li>
+        <li><i class="fa-solid fa-church"></i> 傍晚：<strong>米蘭大教堂 Duomo</strong> + 屋頂露台全景</li>
+        <li><i class="fa-solid fa-store"></i> <strong>Galleria Vittorio Emanuele II</strong> — 意大利最古老購物長廊 · 玻璃穹頂</li>
+      </ul>
+      <div class="day-transport"><i class="fa-solid fa-clock"></i> 🚗 Brig→Simplon→Stresa ~1.5hr · Stresa→米蘭 ~1.5hr · ⚠️ 冬季胎強制 · 建議備雪鏈</div>
+    </div>
+
+    <!-- Day 9 -->
+    <div class="day-card day-flight">
+      <div class="day-header">
+        <div><span class="day-num">Day 9</span><br><span class="day-date">12月6日 星期日</span></div>
+        <span class="day-country country-transit">✈ 返程</span>
+      </div>
+      <div class="day-route">🇮🇹 米蘭 → 🇭🇰 香港</div>
+      <ul class="day-activities">
+        <li><i class="fa-solid fa-car"></i> 酒店 → MXP 米蘭馬爾彭薩機場 (45分鐘)</li>
+        <li><i class="fa-solid fa-plane-departure"></i> <strong>CX234</strong> 米蘭(MXP) ~11:45 起飛 → 香港(HKG) 06:25 (+1)<br><small style="color:#64748b">Cathay Pacific Boeing 777-300ER · 飛行時間 ~12小時</small></li>
+      </ul>
+      <div class="day-transport"><i class="fa-solid fa-clock"></i> 🚗 米蘭→MXP 45min · ✈ CX234 每日一班 · 12月7日(一) 06:25 抵港</div>
+    </div>
+
+    <!-- Transport Overview -->
+    <div class="section-title"><i class="fa-solid fa-route"></i> 交通總覽</div>
+
+    <div class="transport-grid">
+      <div class="transport-card">
+        <h4><i class="fa-solid fa-plane" style="color:#8b5cf6;"></i> ✈ 去程航班 (11/28)</h4>
+        <div class="flight-row"><span>HKG → ZRH</span><span class="flight-no">CX383</span><span class="flight-time">00:45→07:30 · ~13hr</span></div>
+        <div class="note">Cathay Pacific Airbus A350-900 · 每日一班 · 同日清晨抵達蘇黎世</div>
+      </div>
+      <div class="transport-card">
+        <h4><i class="fa-solid fa-plane-arrival" style="color:#8b5cf6;"></i> ✈ 回程航班 (12/6)</h4>
+        <div class="flight-row"><span>MXP → HKG</span><span class="flight-no">CX234</span><span class="flight-time">11:45→06:25 (+1) · ~12hr</span></div>
+        <div class="note">Cathay Pacific Boeing 777-300ER · 每日一班 · 12月7日(一)清晨抵港</div>
+      </div>
+      <div class="transport-card">
+        <h4><i class="fa-solid fa-car" style="color:#10b981;"></i> 🚗 自駕路線</h4>
+        <div class="flight-row"><span>蘇黎世 → Visp</span><span>A1/A9 公路</span><span class="flight-time">~160km · 2.5hr</span></div>
+        <div class="flight-row"><span>Visp → Täsch</span><span>山谷公路</span><span class="flight-time">~26km · 30min</span></div>
+        <div class="flight-row"><span>Brig → Simplon → Stresa</span><span>E62 公路</span><span class="flight-time">~90km · 1.5hr</span></div>
+        <div class="flight-row"><span>Stresa → 米蘭</span><span>A8/A26 公路</span><span class="flight-time">~80km · 1.5hr</span></div>
+        <div class="note">總自駕距離約 500km · 瑞士高速公路需 Vignette (CHF 40) · Simplon Pass 冬季胎強制</div>
+      </div>
+      <div class="transport-card">
+        <h4><i class="fa-solid fa-train" style="color:#94a3b8;"></i> 🚂 Zermatt 穿梭火車</h4>
+        <div class="flight-row"><span>Täsch ↔ Zermatt</span><span>Matterhorn Gotthard Bahn</span><span class="flight-time">12min · 每20分鐘</span></div>
+        <div class="note">Täsch 停車場 ~CHF 24/2天 · 火車 ~CHF 17來回 · Zermatt 全鎮禁止汽車 · 只能步行/電動車</div>
+      </div>
+    </div>
+
+    <div class="section-title" style="margin-top: 24px;"><i class="fa-solid fa-circle-info"></i> 旅行提示</div>
+    <div class="transport-card" style="max-width:100%; margin-bottom:16px;">
+      <h4><i class="fa-solid fa-triangle-exclamation" style="color:#f59e0b;"></i> 重要注意事項</h4>
+      <div class="note" style="color:#475569;font-size:0.85rem;line-height:1.7;">
+        <strong>🏔️ Zermatt 無車政策：</strong>私家車只能停在 Täsch，必須轉乘穿梭火車進入。建議攜帶小行李袋而非大行李箱。<br><br>
+        <strong>⛷️ 滑雪通行證：</strong>如需滑到意大利 Cervinia，必須購買 International Skipass。如果沒有國際證而誤入意大利一側，需花 ~€900 搭4小時計程車返回。<br><br>
+        <strong>🌨️ Simplon Pass 冬季駕駛：</strong>海拔 2,005m · 冬季胎為法律要求 · 強烈建議攜帶雪鏈 · 出發前查詢 Alpen-pässe 路況網站。<br><br>
+        <strong>🎿 11月底雪況：</strong>Zermatt 冰川區海拔 3,883m 保證有雪 · 歷史11月雪深約 150cm · 雪質評分高達 98-100。<br><br>
+        <strong>🚗 瑞士高速公路 Vignette：</strong>必須購買 CHF 40 年票貼紙，可在邊境/加油站購買。貼在擋風玻璃上。
+      </div>
+    </div>
+  </div>
+</div><!-- Footer -->
+<footer>
+  <p>旅行資訊來源：Zermatt Tourism · Switzerland Tourism · martinachicki.com · arzotravels.com · Wikivoyage · Wikipedia</p>
+  <p>地圖：<a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> · 航班資料參考 Cathay Pacific 官網 · 路況查詢：Alpen-pässe</p>
+  <p style="margin-top: 6px;">Made for personal travel planning · 2026</p>
+</footer>
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+/* ===== DATA ===== */
+function img(name) { return 'images/' + name; }
+
+var markers = [
+  { id: 0, lat: 22.308, lng: 113.918, name: '香港國際機場 HKG', en: 'Hong Kong Intl Airport',
+    desc: '出發點 · CX383 夜機直航蘇黎世 (00:45-07:30)',
+    img: '', link: '', cls: 'marker-hk', day: 1 },
+  { id: 1, lat: 47.458, lng: 8.556, name: '蘇黎世機場 ZRH', en: 'Zurich Airport',
+    desc: 'CX383 清晨 07:30 抵達 · 瑞士最大國際機場',
+    img: '', link: '', cls: 'marker-transport', day: 2 },
+  { id: 2, lat: 47.370, lng: 8.544, name: '蘇黎世舊城 Altstadt', en: 'Zurich Old Town (Altstadt)',
+    desc: 'Lindenhof 觀景台俯瞰利馬特河 · Grossmünster 大教堂雙塔 · Bahnhofstrasse 名店街',
+    img: img('zurich_altstadt.jpg'), link: 'https://en.wikipedia.org/wiki/Altstadt_(Z%C3%BCrich)', cls: 'marker-swiss', day: 2 },
+  { id: 3, lat: 47.337, lng: 8.535, name: 'Lindt 巧克力博物館', en: 'Lindt Home of Chocolate',
+    desc: '瑞士蓮巧克力博物館 · 全球最大巧克力噴泉 (9m高) · 互動巧克力製作體驗',
+    img: img('lindt_museum.jpg'), link: 'https://www.lindt-home-of-chocolate.com/en/', cls: 'marker-swiss', day: 2 },
+  { id: 4, lat: 46.068, lng: 7.776, name: 'Täsch 停車場 & 火車站', en: 'Täsch Parking & Shuttle Station',
+    desc: 'Zermatt 前最後的汽車檢查點 · 大型室內停車場 (~CHF 24/2天) · 穿梭火車每20分鐘一班',
+    img: '', link: '', cls: 'marker-transport', day: 3 },
+  { id: 5, lat: 46.021, lng: 7.749, name: 'Zermatt 小鎮', en: 'Zermatt Village (1,620m)',
+    desc: '無車小鎮 · 傳統木屋 Hinterdorf · 馬特洪峰山腳下的童話世界',
+    img: img('zermatt_village.jpg'), link: 'https://en.wikipedia.org/wiki/Zermatt', cls: 'marker-swiss', day: 3 },
+  { id: 6, lat: 45.937, lng: 7.730, name: 'Matterhorn Glacier Paradise', en: 'Matterhorn Glacier Paradise (3,883m)',
+    desc: '歐洲最高纜車站 · 360° 觀景台看 38 座 4,000m+ 山峰 · 冰川滑雪全年開放',
+    img: img('glacier_paradise.jpg'), link: 'https://www.matterhornparadise.ch/en', cls: 'marker-ski', day: 4 },
+  { id: 7, lat: 45.983, lng: 7.785, name: 'Gornergrat 觀景台', en: 'Gornergrat (3,089m)',
+    desc: '觀景火車 33 分鐘登頂 · 馬特洪峰全景最佳位置 · Riffelsee 倒影湖',
+    img: img('gornergrat.jpg'), link: 'https://en.wikipedia.org/wiki/Gornergrat', cls: 'marker-ski', day: 6 },
+  { id: 8, lat: 46.017, lng: 7.772, name: 'Sunnegga 滑雪區', en: 'Sunnegga Paradise (2,288m)',
+    desc: '地下纜車 3 分鐘直達 · Rothorn (3,103m) 全景 · 中級滑雪者天堂',
+    img: img('sunnegga.jpg'), link: 'https://www.matterhornparadise.ch/en/sunnegga', cls: 'marker-ski', day: 5 },
+  { id: 9, lat: 46.251, lng: 8.033, name: 'Simplon Pass 山口', en: 'Simplon Pass (2,005m)',
+    desc: '拿破崙時代修建的阿爾卑斯通道 · 冬季雪景壯麗 · 鷹紀念碑 · 歷史 Hospiz 旅館',
+    img: img('simplon_pass.jpg'), link: 'https://en.wikipedia.org/wiki/Simplon_Pass', cls: 'marker-swiss', day: 8 },
+  { id: 10, lat: 46.289, lng: 8.063, name: 'Ganter Bridge', en: 'Ganter Bridge',
+    desc: '標誌性 S 型混凝土橋樑 · 跨越 150m 深谷 · 瑞士最著名公路橋之一',
+    img: img('ganter_bridge.jpg'), link: 'https://en.wikipedia.org/wiki/Ganter_Bridge', cls: 'marker-swiss', day: 8 },
+  { id: 11, lat: 45.883, lng: 8.539, name: 'Stresa (Lake Maggiore)', en: 'Stresa, Lake Maggiore',
+    desc: '湖濱度假小鎮 · 華麗酒店長廊 · Borromean Islands 遊船出發點',
+    img: img('stresa.jpg'), link: 'https://en.wikipedia.org/wiki/Stresa', cls: 'marker-italy', day: 8 },
+  { id: 12, lat: 45.895, lng: 8.527, name: 'Isola Bella 島', en: 'Isola Bella (Borromean Islands)',
+    desc: '巴洛克皇宮 + 十層梯田花園 · Lake Maggiore 最華麗的島嶼',
+    img: img('isola_bella.jpg'), link: 'https://en.wikipedia.org/wiki/Isola_Bella_(Lago_Maggiore)', cls: 'marker-italy', day: 8 },
+  { id: 13, lat: 45.464, lng: 9.192, name: '米蘭大教堂 Duomo', en: 'Milan Cathedral (Duomo di Milano)',
+    desc: '世界第三大教堂 · 135 座尖塔 · 屋頂露台俯瞰全市 · 哥德式建築傑作',
+    img: img('duomo_milan.jpg'), link: 'https://en.wikipedia.org/wiki/Milan_Cathedral', cls: 'marker-italy', day: 8 },
+  { id: 14, lat: 45.466, lng: 9.190, name: 'Galleria Vittorio Emanuele II', en: 'Galleria Vittorio Emanuele II',
+    desc: '意大利最古老購物長廊 · 玻璃穹頂 · Prada 及 Gucci 旗艦店 · 公牛馬賽克祈福',
+    img: img('galleria.jpg'), link: 'https://en.wikipedia.org/wiki/Galleria_Vittorio_Emanuele_II', cls: 'marker-italy', day: 8 },
+  { id: 15, lat: 45.630, lng: 8.726, name: '米蘭 MXP 機場', en: 'Milan Malpensa Airport (MXP)',
+    desc: 'CX234 返港出發 (~11:45) · 米蘭市中心駕車 45 分鐘',
+    img: '', link: '', cls: 'marker-transport', day: 9 }
+];
+
+/* ===== MAP SETUP ===== */
+var map = L.map('map', { zoomSnap: 0.25 }).setView([46.3, 8.3], 7.5);
+
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/">CARTO</a>',
+  subdomains: 'abcd', maxZoom: 19
+}).addTo(map);
+
+var markerLayers = [];
+markers.forEach(function(m) {
+  var icon = L.divIcon({
+    className: 'custom-marker ' + m.cls, html: String(m.id),
+    iconSize: [30, 30], iconAnchor: [15, 15], popupAnchor: [0, -18]
+  });
+  var imgHtml = '';
+  if (m.img) {
+    imgHtml = '<img src="' + m.img + '" alt="' + m.name + '" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\';" loading="lazy"><div class="popup-img-fallback" style="display:none;"><i class="fa-solid fa-image"></i></div>';
+  } else {
+    imgHtml = '<div class="popup-img-fallback"><i class="fa-solid fa-' + (m.cls === 'marker-transport' ? 'plane' : 'landmark') + '"></i></div>';
+  }
+  var linkHtml = '';
+  if (m.link) { linkHtml = '<a class="popup-link" href="' + m.link + '" target="_blank" rel="noopener">詳細介紹 →</a>'; }
+  var popupContent = imgHtml + '<div class="popup-title">' + m.name + '</div><div class="popup-subtitle">' + m.en + '</div><p style="margin:6px 0;font-size:0.85rem;">' + m.desc + '</p>' + linkHtml;
+  var marker = L.marker([m.lat, m.lng], { icon: icon }).bindPopup(popupContent, { maxWidth: 300 }).addTo(map);
+  marker._dayNum = m.day; marker._id = m.id;
+  markerLayers.push(marker);
+});
+
+/* ===== ROUTE LINES ===== */
+L.polyline([[22.308, 113.918], [47.458, 8.556]], { color: '#8b5cf6', weight: 3, dashArray: '10, 8', opacity: 0.7 }).addTo(map);
+L.polyline([[47.370, 8.544], [46.068, 7.776]], { color: '#10b981', weight: 4, opacity: 0.7 }).addTo(map);
+L.polyline([[46.068, 7.776], [46.021, 7.749]], { color: '#94a3b8', weight: 2, dashArray: '4, 6', opacity: 0.7 }).addTo(map);
+L.polyline([[46.068, 7.776], [46.251, 8.033], [46.289, 8.063], [45.883, 8.539]], { color: '#10b981', weight: 4, opacity: 0.7 }).addTo(map);
+L.polyline([[45.883, 8.539], [45.464, 9.192]], { color: '#10b981', weight: 4, opacity: 0.7 }).addTo(map);
+L.polyline([[45.464, 9.192], [45.630, 8.726]], { color: '#10b981', weight: 4, opacity: 0.7 }).addTo(map);
+L.polyline([[45.630, 8.726], [22.308, 113.918]], { color: '#8b5cf6', weight: 3, dashArray: '10, 8', opacity: 0.7 }).addTo(map);
+
+var allCoords = markers.map(function(m) { return [m.lat, m.lng]; });
+map.fitBounds(allCoords, { padding: [40, 40] });
+
+/* ===== INTERACTIONS ===== */
+
+// Focus map on a specific day's markers
+function focusDay(dayNum) {
+  var dayMarkers = markerLayers.filter(function(m) { return m._dayNum === dayNum; });
+  if (dayMarkers.length === 0) return;
+  var coords = dayMarkers.map(function(m) { return m.getLatLng(); });
+  var bounds = L.latLngBounds(coords);
+  map.fitBounds(bounds, { padding: [60, 60], maxZoom: 14 });
+  dayMarkers.forEach(function(m) { m.setZIndexOffset(1000); });
+  setTimeout(function() {
+    dayMarkers.forEach(function(m) { m.setZIndexOffset(0); });
+  }, 2500);
+}
+
+// Pan to a specific marker and open its popup
+function focusMarker(markerId) {
+  var marker = null;
+  for (var i = 0; i < markerLayers.length; i++) {
+    if (markerLayers[i]._id === markerId) { marker = markerLayers[i]; break; }
+  }
+  if (!marker) return;
+  map.setView(marker.getLatLng(), 15, { animate: true, duration: 0.5 });
+  setTimeout(function() { marker.openPopup(); }, 500);
+}
+
+// Click day card → focus that day's area
+document.querySelectorAll('.day-card').forEach(function(card) {
+  card.addEventListener('click', function(e) {
+    if (e.target.closest('a')) return;
+    var dayMatch = card.querySelector('.day-num');
+    if (!dayMatch) return;
+    var dayNum = parseInt(dayMatch.textContent.replace(/Day\s*/, ''));
+    focusDay(dayNum);
+    if (window.innerWidth <= 900) {
+      document.querySelector('.map-panel').scrollIntoView({ behavior: 'smooth' });
+    }
+  });
+});
+
+// Place name → marker ID mapping
+var nameToMarker = {
+  '蘇黎世舊城 Altstadt': 2,
+  'Lindt Home of Chocolate': 3,
+  'Täsch 停車場': 4,
+  'Zermatt 小鎮': 5,
+  'Matterhorn Glacier Paradise': 6,
+  'Gornergrat 觀景火車': 7,
+  'Gornergrat': 7,
+  'Riffelsee 湖': 7,
+  'Sunnegga': 8,
+  'Simplon Pass': 9,
+  'Ganter Bridge': 10,
+  'Lake Maggiore · Stresa': 11,
+  'Stresa': 11,
+  'Isola Bella 島': 12,
+  '米蘭大教堂 Duomo': 13,
+  'Galleria Vittorio Emanuele II': 14,
+  '瑞典皇宮 Kungliga Slottet': 2,
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  'Turaida 城堡': 22
+};
+
+// Click place name → focus marker + open popup
+document.querySelector('.itinerary-panel').addEventListener('click', function(e) {
+  var strong = e.target.closest('strong');
+  if (!strong) return;
+  if (e.target.closest('a')) return;
+  var text = strong.textContent.trim();
+
+  var markerId = nameToMarker[text];
+  if (markerId === undefined) {
+    for (var key in nameToMarker) {
+      if (text.includes(key) || key.includes(text)) {
+        markerId = nameToMarker[key];
+        break;
+      }
+    }
+  }
+
+  if (markerId !== undefined) {
+    e.stopPropagation();
+    focusMarker(markerId);
+  }
+});
+
+// Add visual cue to clickable place names
+document.querySelectorAll('.day-activities strong').forEach(function(el) {
+  var text = el.textContent.trim();
+  var found = nameToMarker[text] !== undefined;
+  if (!found) {
+    for (var key in nameToMarker) {
+      if (text.includes(key) || key.includes(text)) { found = true; break; }
+    }
+  }
+  if (found) {
+    el.classList.add('clickable-place');
+    el.title = '點擊在地圖上查看';
+  }
+});
+
+// Day card hover → dim non-relevant markers
+document.querySelectorAll('.day-card').forEach(function(card) {
+  card.addEventListener('mouseenter', function() {
+    var dayMatch = card.querySelector('.day-num');
+    if (!dayMatch) return;
+    var dayNum = parseInt(dayMatch.textContent.replace(/Day\s*/, ''));
+    markerLayers.forEach(function(m) {
+      if (m._dayNum === dayNum) { m.setZIndexOffset(1000); m.setOpacity(1); }
+      else { m.setZIndexOffset(0); m.setOpacity(0.35); }
+    });
+  });
+  card.addEventListener('mouseleave', function() {
+    markerLayers.forEach(function(m) { m.setZIndexOffset(0); m.setOpacity(1); });
+  });
+});
+</script>
+</body>
+</html>
