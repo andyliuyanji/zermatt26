@@ -24,14 +24,15 @@ git add . && git commit -m "更新內容" && git push
 
 | 日期 | 行程 |
 |------|------|
-| 11/28 (六) | HKG → ZRH (CX383) |
-| 11/29 (日) | 蘇黎世全日遊 · 取車 |
-| 11/30 (一) | Zermatt 小鎮探索 |
-| 12/1 (二) | ⛷️ 滑雪 Day 1 |
-| 12/2 (三) | ⛷️ 滑雪 Day 2 |
-| 12/3 (四) | ☕ 休息日 · Gornergrat |
-| 12/4 (五) | ⛷️ 滑雪 Day 3 |
-| 12/5 (六) | 🚗 Simplon Pass → 米蘭 |
+| 11/28 (六) | ✈ CX383 抵達 · 蘇黎世 → 琉森 |
+| 11/29 (日) | 🚗 琉森 → Interlaken → Kandersteg 汽車火車 → Zermatt |
+| 11/30 (一) | ⛷️ 滑雪 Day 1 |
+| 12/1 (二) | ⛷️ 滑雪 Day 2 |
+| 12/2 (三) | ☕ 休息日 · Gornergrat |
+| 12/3 (四) | ⛷️ 滑雪 Day 3 |
+| 12/4 (五) | 🚗 Simplon Pass → Lake Maggiore |
+| 12/5 (六) | 🚗 米蘭觀光 |
+| 12/6 (日) | ✈ CX234 MXP→HKG |
 | 12/6 (日) | MXP → HKG (CX234) |
 
 ## 航班
@@ -45,6 +46,6 @@ git add . && git commit -m "更新內容" && git push
 zermatt26/
 ├── index.html          # 桌面版
 ├── index-mobile.html   # 手機版 (地圖上半 + 底部滑動面板)
-├── images/             # 景點圖片 (14張)
+├── images/             # 景點圖片 (17張)
 └── README.md
 ```
