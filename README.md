@@ -24,8 +24,8 @@ git add . && git commit -m "更新內容" && git push
 
 | 日期 | 行程 |
 |------|------|
-| 11/24 (二) | ✈ 香港 → 雅典（晚機，轉機一次） |
-| 11/25 (三) | 中午抵達雅典 · Plaka · Monastiraki · 🏨 Anthology of Athens |
+| 11/24 (二) | 🚕 香港 → 深圳 SZX · ✈ HU7059 凌晨起飛 |
+| 11/25 (三) | 15:25 抵達雅典 · Plaka · Monastiraki · 🏨 Anthology of Athens |
 | 11/26 (四) | 🏛️ 雅典全日 — Acropolis 衛城 · Ancient Agora · 🏨 Anthology of Athens |
 | 11/27 (五) | 🚗 雅典 Day Trip — Corinth 科林斯 / Cape Sounion 等 · 🏨 Holiday Inn Athens Attica Av (機場) |
 | 11/28 (六) | ✈ A3660 ATH→MXP 08:35-10:10 → 🚗 Lugano 盧加諾 |
@@ -40,7 +40,7 @@ git add . && git commit -m "更新內容" && git push
 
 ## 航班
 
-- 第一程：HKG→ATH 11/24 晚機（無直航 · 經多哈/杜拜/伊斯坦堡轉機）
+- 第一程：🚕 香港→深圳 SZX · HU7059 SZX 01:35→BRU 07:05→ATH 15:25（海南航空 · 布魯塞爾轉機）
 - 第二程：ATH→MXP A3660 11/28 08:35-10:10 (Aegean A320)
 - 回程：CX234 MXP→HKG 12/6 ~11:45-06:25+1 (Cathay B777)
 
