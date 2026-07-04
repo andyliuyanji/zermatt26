@@ -25,9 +25,9 @@ git add . && git commit -m "更新內容" && git push
 | 日期 | 行程 |
 |------|------|
 | 11/24 (二) | ✈ 香港 → 雅典（晚機，轉機一次） |
-| 11/25 (三) | 中午抵達雅典 · Plaka · Monastiraki |
-| 11/26 (四) | 🏛️ 雅典全日 — Acropolis 衛城 · Ancient Agora |
-| 11/27 (五) | 🚗 雅典 Day Trip — Corinth 科林斯 / Cape Sounion 等 |
+| 11/25 (三) | 中午抵達雅典 · Plaka · Monastiraki · 🏨 Anthology of Athens |
+| 11/26 (四) | 🏛️ 雅典全日 — Acropolis 衛城 · Ancient Agora · 🏨 Anthology of Athens |
+| 11/27 (五) | 🚗 雅典 Day Trip — Corinth 科林斯 / Cape Sounion 等 · 🏨 Holiday Inn Athens Attica Av (機場) |
 | 11/28 (六) | ✈ A3660 ATH→MXP 08:35-10:10 → 🚗 Lugano 盧加諾 |
 | 11/29 (日) | 🚗 Lugano → Interlaken 因特拉肯 → Grindelwald 格林德瓦 |
 | 11/30 (一) | 🚗 Grindelwald → Kandersteg 汽車火車 → Zermatt |
