@@ -96,7 +96,7 @@ footer a { color: #2d6a9f; text-decoration: none; }
 @media (min-width: 768px) {
   html, body { height: auto; overflow: auto; }
   body { background: #f0f4f8; }
-  .main-layout { display: grid; grid-template-columns: 1fr 1fr; height: auto; max-width: 1400px; margin: 16px auto 0; padding: 0 16px; gap: 0; }
+  .main-layout { display: block; height: auto; max-width: 1400px; margin: 16px auto 0; padding: 0 16px; }
   .hero { padding: 32px 24px 28px; }
   .hero h1 { font-size: 1.8rem; }
   .hero .subtitle { font-size: 0.95rem; }
@@ -105,14 +105,14 @@ footer a { color: #2d6a9f; text-decoration: none; }
   .quick-stats { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; padding: 16px 20px; max-width: 1000px; margin: -16px auto 0; position: relative; z-index: 2; }
   .quick-stats .stat { background: #fff; border-radius: 10px; padding: 10px 16px; box-shadow: 0 2px 10px rgba(0,0,0,0.06); font-size: 0.85rem; text-align: center; min-width: 80px; }
   .stat strong { display: block; font-size: 1.2rem; color: #1e3a5f; }
-  .map-panel { position: sticky; top: 12px; height: calc(100vh - 40px); }
+  .map-panel { position: relative; top: auto; height: 60vh; min-height: 420px; }
   .map-panel .panel-label { padding: 8px 14px; font-size: 0.85rem; border-radius: 8px 8px 0 0; }
   #map { height: calc(100% - 37px); border-radius: 0 0 8px 8px; border: 1px solid #e2e8f0; }
   .map-legend { bottom: 16px; right: 16px; padding: 8px 12px; font-size: 0.72rem; line-height: 1.9; }
   .bottom-sheet { flex: none; background: transparent; border-radius: 0; margin-top: 0; box-shadow: none; }
   .sheet-handle { display: none; }
   .divider { display: none; }
-  .itinerary-panel { padding: 0 0 40px 18px; overflow-y: auto; }
+  .itinerary-panel { padding: 20px 0 40px; max-width: 1000px; margin: 0 auto; overflow-y: visible; }
   .section-title { font-size: 1.2rem; margin: 24px 0 14px; }
   .day-card { padding: 16px 20px; margin-bottom: 12px; border-radius: 10px; }
   .day-card:hover { box-shadow: 0 4px 14px rgba(0,0,0,0.08); transform: translateY(-1px); }
@@ -155,19 +155,19 @@ footer a { color: #2d6a9f; text-decoration: none; }
 
 <!-- Hero -->
 <div class="hero">
-  <div class="flags">🇭🇰 ✈ 🇬🇷 ✈ 🇨🇭 🚗 ⛷️ 🚗 🇮🇹 ✈ 🇭🇰</div>
-  <h1>雅典 · Zermatt 滑雪 · 13日自駕</h1>
+  <div class="flags">🇭🇰 ✈ 🇶🇦 ✈ 🇬🇷 ✈ 🇨🇭 🚗 ⛷️ 🚗 🇮🇹 ✈ 🇭🇰</div>
+  <h1>雅典 · Zermatt 滑雪 · 12日自駕</h1>
   <p class="subtitle">香港出發 — 雅典 · Zermatt · 米蘭</p>
-  <span class="date-badge">📅 2026年11月24日 (二) – 12月6日 (日)</span>
+  <span class="date-badge">📅 2026年11月25日 (三) – 12月6日 (日)</span>
 </div>
 
 <div class="quick-stats">
   <div class="stat"><strong>3</strong>個國家</div>
-  <div class="stat"><strong>13</strong>天行程</div>
-  <div class="stat"><strong>3</strong>程航班</div>
+  <div class="stat"><strong>12</strong>天行程</div>
+  <div class="stat"><strong>4</strong>程航班</div>
   <div class="stat"><strong>3</strong>天滑雪</div>
   <div class="stat"><strong>4</strong>天Zermatt</div>
-  <div class="stat"><strong>3</strong>天雅典</div>
+  <div class="stat"><strong>2</strong>天雅典</div>
   <div class="stat"><strong>~700km</strong>自駕里程</div>
 </div>
 
@@ -200,136 +200,117 @@ footer a { color: #2d6a9f; text-decoration: none; }
     <!-- Day 1 -->
     <div class="day-card day-flight">
       <div class="day-header">
-        <div><span class="day-num">Day 1</span><br><span class="day-date">11月24日 星期二</span></div>
+        <div><span class="day-num">Day 1</span><br><span class="day-date">11月25日 星期三</span></div>
         <span class="day-country country-transit">✈ 出發</span>
       </div>
-      <div class="day-route">🇭🇰 香港 → 🚕 深圳 → ✈ SZX 寶安機場</div>
+      <div class="day-route">🇭🇰 香港 → ✈ HKG 香港國際機場</div>
       <ul class="day-activities">
-        <li><i class="fa-solid fa-taxi"></i> 傍晚從香港乘的士前往 <strong>深圳寶安國際機場 SZX</strong>（經深圳灣口岸 · ~1-1.5 小時）</li>
-        <li><i class="fa-solid fa-clock"></i> 提前到達 SZX · 辦理登機及過關手續</li>
-        <li><i class="fa-solid fa-plane-departure"></i> <strong>HU7059</strong> SZX 01:35 → BRU 07:05 (+1)<br><small style="color:#64748b">海南航空 · 飛行 ~11.5 小時</small></li>
+        <li><i class="fa-solid fa-suitcase"></i> 白天收拾行李 · 晚上前往 <strong>香港國際機場 HKG</strong>（機場快綫 ~24分鐘 或 的士）</li>
+        <li><i class="fa-solid fa-clock"></i> 建議 22:30 前抵達機場 · 辦理登機及過關（QR815 屬 11/26 凌晨航班）</li>
+        <li><i class="fa-solid fa-plane-departure"></i> <strong>QR815</strong> HKG 00:25 → DOH 04:15 (+1)<br><small style="color:#64748b">卡塔爾航空 Qatar Airways · 飛行 ~9 小時</small></li>
         <li><i class="fa-solid fa-moon"></i> 凌晨起飛 · 機上過夜</li>
       </ul>
-      <div class="day-transport"><i class="fa-solid fa-clock"></i> 🚕 香港→深圳灣口岸→SZX ~1-1.5hr · ✈ HU7059 01:35 起飛</div>
+      <div class="day-transport"><i class="fa-solid fa-clock"></i> 🚇 機場快綫 24min · ✈ QR815 00:25 起飛（11/26 凌晨）· 機上過夜</div>
     </div>
-
     <!-- Day 2 -->
     <div class="day-card day-greece">
       <div class="day-header">
-        <div><span class="day-num">Day 2</span><br><span class="day-date">11月25日 星期三</span></div>
+        <div><span class="day-num">Day 2</span><br><span class="day-date">11月26日 星期四</span></div>
         <span class="day-country country-greece">🇬🇷 雅典</span>
       </div>
-      <div class="day-route">✈ BRU→ATH 15:25 抵達雅典 → Plaka 舊城區</div>
+      <div class="day-route">✈ HKG→DOH→ATH · 約 11:20 抵達雅典 → Plaka 舊城區</div>
       <ul class="day-activities">
-        <li><i class="fa-solid fa-plane-arrival"></i> <strong>HU7059</strong> 抵達 BRU 07:05 · 轉機 BRU→ATH 11:25→15:25<br><small style="color:#64748b">布魯塞爾轉機 ~4hr 20min · 第二段 ~3 小時</small></li>
-        <li><i class="fa-solid fa-plane-arrival"></i> 15:25 抵達 <strong>雅典國際機場 ATH</strong> <sup class="mk-badge mk-greece">1</sup> · 出關 + 前往市區 (~40分鐘)</li>
+        <li><i class="fa-solid fa-plane-arrival"></i> <strong>QR815</strong> 約 04:15 抵達多哈 DOH (Hamad 國際機場) · 轉機 ~3 小時</li>
+        <li><i class="fa-solid fa-plane-arrival"></i> <strong>QR203</strong> DOH 07:20 → ATH 約 11:20<br><small style="color:#64748b">卡塔爾航空 · 飛行 ~5 小時</small></li>
+        <li><i class="fa-solid fa-plane-arrival"></i> 約 11:20 抵達 <strong>雅典國際機場 ATH</strong> <sup class="mk-badge mk-greece">1</sup> · 出關 + 前往市區 (~40分鐘)</li>
         <li><i class="fa-solid fa-hotel"></i> 入住 <strong>Anthology of Athens</strong> <br><small style="color:#64748b">4 Andrea Syngrou Avenue · Acropolis · 評分 9.7/10 · 605 則評價</small></li>
         <li><i class="fa-solid fa-shoe-prints"></i> 下午：漫步 <strong>Plaka 舊城區</strong> <sup class="mk-badge mk-greece">2</sup> — 雅典最古老街區 · 新古典建築 · 小店咖啡館</li>
         <li><i class="fa-solid fa-shop"></i> <strong>Monastiraki 跳蚤市場</strong> <sup class="mk-badge mk-greece">2</sup> — 古董尋寶 · 手工皮革涼鞋 · 希臘橄欖皂手信</li>
         <li><i class="fa-solid fa-utensils"></i> 晚餐：Plaka 區傳統希臘菜 — Moussaka 茄子千層 · Souvlaki 烤肉串 · Greek Salad</li>
       </ul>
-      <div class="day-transport"><i class="fa-solid fa-clock"></i> ✈ 15:25 抵達 ATH · 🚇 機場→市區 Metro ~40分鐘 · 傍晚 Plaka 輕鬆漫步 · 時差 6 小時</div>
+      <div class="day-transport"><i class="fa-solid fa-clock"></i> ✈ 約 11:20 抵達 ATH · 🚇 機場→市區 Metro ~40分鐘 · 下午 Plaka 輕鬆漫步 · 時差 6 小時</div>
     </div>
-
     <!-- Day 3 -->
     <div class="day-card day-greece">
       <div class="day-header">
-        <div><span class="day-num">Day 3</span><br><span class="day-date">11月26日 星期四</span></div>
-        <span class="day-country country-greece">🇬🇷 雅典</span>
+        <div><span class="day-num">Day 3</span><br><span class="day-date">11月27日 星期五</span></div>
+        <span class="day-country country-greece">🇬🇷 雅典全日</span>
       </div>
-      <div class="day-route">🏛️ 雅典全日 — Acropolis 衛城 · Ancient Agora · 博物館</div>
+      <div class="day-route">🏛️ 雅典全日 — Acropolis 衛城 · 衛城博物館 · Ancient Agora → 晚上轉住機場酒店</div>
       <ul class="day-activities">
-        <li><i class="fa-solid fa-landmark"></i> 上午：<strong>Acropolis 衛城</strong> <sup class="mk-badge mk-greece">2</sup> — Parthenon 巴特農神殿 · Erechtheion 少女柱 · 俯瞰全城 (建議 8:00 開門入場)</li>
+        <li><i class="fa-solid fa-landmark"></i> 上午 8:00：<strong>Acropolis 衛城</strong> <sup class="mk-badge mk-greece">2</sup> 開門第一批入場避人潮 — Parthenon 巴特農神殿 · Erechtheion 少女柱 · 俯瞰全城</li>
         <li><i class="fa-solid fa-landmark"></i> <strong>衛城博物館</strong> — 玻璃地板看考古遺址 · 頂層 Parthenon 浮雕復原展廳</li>
         <li><i class="fa-solid fa-building-columns"></i> 下午：<strong>Ancient Agora 古市集</strong> <sup class="mk-badge mk-greece">2</sup> — 赫菲斯托斯神廟（保存最完整的希臘神廟）· Stoa of Attalos 柱廊博物館</li>
+        <li><i class="fa-solid fa-wine-glass"></i> Psiri 潮流區 — 午餐 + 希臘小碟 mezze · Ouzo 茴香酒</li>
         <li><i class="fa-solid fa-mountain"></i> 黃昏：Lycabettus Hill 利卡維多斯山丘 — 纜車上山 · 愛琴海日落全景</li>
-        <li><i class="fa-solid fa-wine-glass"></i> 晚餐：Psiri 潮流區 — 希臘小碟 mezze + Ouzo 茴香酒</li>
+        <li style="margin-top: 8px; padding-top: 8px; border-top: 1px dashed #e2e8f0;"><i class="fa-solid fa-hotel"></i> 晚上：酒店取行李 → 轉住 <strong>Holiday Inn Athens Attica Av, Airport W.</strong> <br><small style="color:#64748b">40.2 Klm Attica Avenue · 鄰近 ATH 機場 · 方便明早 08:35 航班</small></li>
       </ul>
       <div class="day-transport"><i class="fa-solid fa-clock"></i> 🚇 雅典景點集中步行可達 · 衛城門票 €20（含 Ancient Agora 等聯票 €30）</div>
-      <div class="day-transport" style="margin-top:8px;"><i class="fa-solid fa-hotel"></i> 續住 <strong>Anthology of Athens</strong> · 4 Andrea Syngrou Avenue · Acropolis</div>
+      <div class="day-transport" style="margin-top:8px;"><i class="fa-solid fa-clock"></i> 🚇 晚上 Metro Line 3 雅典市區 → 機場酒店 ~50分鐘（或的士 ~35分鐘）</div>
     </div>
-
     <!-- Day 4 -->
-    <div class="day-card day-greece">
-      <div class="day-header">
-        <div><span class="day-num">Day 4</span><br><span class="day-date">11月27日 星期五</span></div>
-        <span class="day-country country-greece">🇬🇷 雅典 Day Trip</span>
-      </div>
-      <div class="day-route">🚗 雅典出發一日遊 — 多個選項（推薦 Corinth 科林斯）</div>
-      <ul class="day-activities">
-        <li><i class="fa-solid fa-star"></i> <strong>推薦：Corinth 科林斯</strong> <sup class="mk-badge mk-greece">3</sup> — 1hr 車程 · Corinth Canal 運河絕壁 · 古科林斯神廟 · Acrocorinth 城堡</li>
-        <li><i class="fa-solid fa-water"></i> <strong>輕鬆：Cape Sounion</strong> <sup class="mk-badge mk-greece">4</sup> — 1hr 車程 · 海神廟 · 愛琴海日落</li>
-        <li><i class="fa-solid fa-mountain"></i> <strong>經典：Delphi 德爾菲</strong> — 2.5hr 車程 · 阿波羅神諭所 UNESCO · 古劇場</li>
-        <li><i class="fa-solid fa-archway"></i> <strong>歷史：Mycenae + Nafplio</strong> — 1.5hr 車程 · 邁錫尼獅子門 · 海邊小鎮</li>
-        <li><i class="fa-solid fa-circle-info"></i> 更多選項詳見下方「雅典一日遊選項」對比表</li>
-        <li style="margin-top: 8px; padding-top: 8px; border-top: 1px dashed #e2e8f0;"><i class="fa-solid fa-hotel"></i> 傍晚返回 · 換至 <strong>Holiday Inn Athens Attica Av, Airport W.</strong> <br><small style="color:#64748b">40.2 Klm Attica Avenue · 鄰近 ATH 機場 · IHG</small></li>
-      </ul>
-      <div class="day-transport"><i class="fa-solid fa-clock"></i> 🚗 建議租車自駕 · Corinth 最推薦（1hr 直達 · 運河+遺址）· 傍晚返回 · 🏨 入住機場酒店方便明早 08:35 航班</div>
-    </div>
-
-    <!-- Day 5 -->
     <div class="day-card day-flight">
       <div class="day-header">
-        <div><span class="day-num">Day 5</span><br><span class="day-date">11月28日 星期六</span></div>
+        <div><span class="day-num">Day 4</span><br><span class="day-date">11月28日 星期六</span></div>
         <span class="day-country country-transit">✈ 雅典 → 🚗 盧加諾</span>
       </div>
-      <div class="day-route">✈ A3660 ATH→MXP → 🚗 Lugano 盧加諾</div>
+      <div class="day-route">🏨 機場酒店 → ✈ A3660 ATH→MXP → 🚗 Lugano 盧加諾</div>
       <ul class="day-activities">
-        <li><i class="fa-solid fa-plane-departure"></i> <strong>A3660</strong> 雅典(ATH) 08:35 → 米蘭(MXP) 10:10 <br><small style="color:#64748b">Aegean Airlines A320 · ~2.5小時</small></li>
-        <li><i class="fa-solid fa-car"></i> MXP 機場取車 · 駕車前往 <strong>Lugano 盧加諾</strong> <sup class="mk-badge mk-swiss">5</sup> (~1hr)</li>
+        <li><i class="fa-solid fa-hotel"></i> 早晨：Holiday Inn 機場酒店接駁車 → <strong>雅典國際機場 ATH</strong> (約 10 分鐘)</li>
+        <li><i class="fa-solid fa-plane-departure"></i> <strong>A3660</strong> 雅典(ATH) 08:35 → 米蘭(MXP) 10:10 <br><small style="color:#64748b">Aegean Airlines Airbus A320 · 飛行 ~2.5小時</small></li>
+        <li><i class="fa-solid fa-car"></i> MXP 機場取車 · 駕車前往 <strong>Lugano 盧加諾</strong> <sup class="mk-badge mk-swiss">3</sup> (約1-1.5小時)</li>
         <li><i class="fa-solid fa-hotel"></i> 入住 <strong>Suitenhotel Parco Paradiso</strong> <br><small style="color:#64748b">Via Carona 27 · 6900 Lugano · 山丘頂俯瞰 Lake Lugano</small></li>
         <li><i class="fa-solid fa-water"></i> Lake Lugano 湖畔漫步 · 地中海風情 · 棕櫚樹與雪山同框</li>
         <li><i class="fa-solid fa-city"></i> 盧加諾舊城區 · Via Nassa 購物街 · Parco Ciani 湖濱公園</li>
-        <li><i class="fa-solid fa-utensils"></i> 晚餐：盧加諾 — Ticino 州意式風情</li>
+        <li><i class="fa-solid fa-utensils"></i> 晚餐：盧加諾 — Ticino 州意式風情 · Risotto + Merlot del Ticino</li>
       </ul>
       <div class="day-transport"><i class="fa-solid fa-clock"></i> ✈ ATH→MXP 2.5hr · 🚗 MXP→Lugano ~1hr / 75km · 夜宿盧加諾</div>
     </div>
-
-    <!-- Day 6 -->
+    <!-- Day 5 -->
     <div class="day-card day-swiss">
       <div class="day-header">
-        <div><span class="day-num">Day 6</span><br><span class="day-date">11月29日 星期日</span></div>
+        <div><span class="day-num">Day 5</span><br><span class="day-date">11月29日 星期日</span></div>
         <span class="day-country country-swiss">🇨🇭 盧加諾 → 格林德瓦</span>
       </div>
       <div class="day-route">🚗 Lugano → Interlaken 因特拉肯 → Grindelwald 格林德瓦</div>
       <ul class="day-activities">
         <li><i class="fa-solid fa-car"></i> 上午：盧加諾出發 · 經 Gotthard 隧道或 Lukmanier Pass 前往 Interlaken (~2.5hr)</li>
-        <li><i class="fa-solid fa-mountain-sun"></i> 中午：<strong>Interlaken 因特拉肯</strong> <sup class="mk-badge mk-swiss">6</sup> — Höhematte 公園遠眺 Eiger/Mönch/Jungfrau 三峰</li>
+        <li><i class="fa-solid fa-mountain-sun"></i> 中午：<strong>Interlaken 因特拉肯</strong> <sup class="mk-badge mk-swiss">4</sup> — Höhematte 公園遠眺 Eiger/Mönch/Jungfrau 三峰</li>
         <li><i class="fa-solid fa-camera"></i> 圖恩湖與布里恩茨湖之間的小鎮 · 滑翔傘勝地 · Jungfrau 全景</li>
-        <li><i class="fa-solid fa-car"></i> 午後駕車前往 <strong>Grindelwald 格林德瓦</strong> <sup class="mk-badge mk-swiss">7</sup> (~30分鐘)</li>
+        <li><i class="fa-solid fa-car"></i> 午後駕車前往 <strong>Grindelwald 格林德瓦</strong> <sup class="mk-badge mk-swiss">5</sup> (~30分鐘)</li>
         <li><i class="fa-solid fa-mountain"></i> Eiger 北壁山下童話小鎮 · First 纜車站 · 典型瑞士木屋風景</li>
         <li><i class="fa-solid fa-person-hiking"></i> 傍晚小鎮漫步 · 拍攝 Eiger 北壁黃昏</li>
       </ul>
       <div class="day-transport"><i class="fa-solid fa-clock"></i> 🚗 Lugano→Interlaken ~2.5hr · Interlaken→Grindelwald 30min · 夜宿 Grindelwald 地區</div>
     </div>
 
-    <!-- Day 7 -->
+    <!-- Day 6 -->
     <div class="day-card day-swiss">
       <div class="day-header">
-        <div><span class="day-num">Day 7</span><br><span class="day-date">11月30日 星期一</span></div>
+        <div><span class="day-num">Day 6</span><br><span class="day-date">11月30日 星期一</span></div>
         <span class="day-country country-swiss">🇨🇭 格林德瓦 → Zermatt</span>
       </div>
       <div class="day-route">🚗 Grindelwald → Kandersteg 汽車火車 → Täsch → 🚂 Zermatt</div>
       <ul class="day-activities">
         <li><i class="fa-solid fa-mountain-sun"></i> 上午：Grindelwald 清晨 · 最後欣賞 Eiger 北壁 · 駕車出發</li>
-        <li><i class="fa-solid fa-train"></i> <strong>Lötschberg 汽車火車</strong> <sup class="mk-badge mk-swiss">8</sup> — 汽車開上火車穿越 Alps 隧道 (~15分鐘)</li>
-        <li><i class="fa-solid fa-car"></i> Goppenstein → Täsch (30分鐘) · <strong>Täsch 停車場</strong> <sup class="mk-badge mk-swiss">9</sup> · 🚂 穿梭火車入 Zermatt</li>
-        <li><i class="fa-solid fa-person-walking"></i> 下午抵達 <strong>Zermatt 小鎮</strong> <sup class="mk-badge mk-swiss">10</sup> — 無車天堂 · Kirchbrücke 橋拍攝馬特洪峰夕照</li>
+        <li><i class="fa-solid fa-train"></i> <strong>Lötschberg 汽車火車</strong> <sup class="mk-badge mk-swiss">6</sup> — 汽車開上火車穿越 Alps 隧道 (~15分鐘)</li>
+        <li><i class="fa-solid fa-car"></i> Goppenstein → Täsch (30分鐘) · <strong>Täsch 停車場</strong> <sup class="mk-badge mk-swiss">7</sup> · 🚂 穿梭火車入 Zermatt</li>
+        <li><i class="fa-solid fa-person-walking"></i> 下午抵達 <strong>Zermatt 小鎮</strong> <sup class="mk-badge mk-swiss">8</sup> — 無車天堂 · Kirchbrücke 橋拍攝馬特洪峰夕照</li>
         <li><i class="fa-solid fa-hotel"></i> 入住 <strong>Firefly Luxury Suites</strong> <br><small style="color:#64748b">Schluhmattstrasse 55 · 3920 Zermatt · 連住 5 晚</small></li>
         <li><i class="fa-solid fa-store"></i> 領取滑雪裝備 · Zermatt 小鎮初探</li>
       </ul>
       <div class="day-transport"><i class="fa-solid fa-clock"></i> 🚗 Grindelwald→Kandersteg 1.5hr · 🚂 汽車火車 ~15min · Goppenstein→Täsch 30min · 🚂 Täsch→Zermatt 12min</div>
     </div>
 
-    <!-- Day 8 -->
+    <!-- Day 7 -->
     <div class="day-card day-ski">
       <div class="day-header">
-        <div><span class="day-num">Day 8</span><br><span class="day-date">12月1日 星期二</span></div>
+        <div><span class="day-num">Day 7</span><br><span class="day-date">12月1日 星期二</span></div>
         <span class="day-country country-ski">⛷️ 滑雪 Day 1</span>
       </div>
       <div class="day-route">⛷️ Sunnegga · Rothorn 滑雪區</div>
       <ul class="day-activities">
-        <li><i class="fa-solid fa-train-subway"></i> <strong>Sunnegga</strong> <sup class="mk-badge mk-ski">12</sup> 地下纜車 — 從鎮中心直達 2,288m (僅3分鐘)</li>
+        <li><i class="fa-solid fa-train-subway"></i> <strong>Sunnegga</strong> <sup class="mk-badge mk-ski">10</sup> 地下纜車 — 從鎮中心直達 2,288m (僅3分鐘)</li>
         <li><i class="fa-solid fa-person-skiing"></i> Rothorn 區域滑雪 — 多條紅道和藍道 · 適合中級滑雪者</li>
         <li><i class="fa-solid fa-camera"></i> <strong>Rothorn 觀景台</strong> (3,103m)：馬特洪峰最佳拍攝角度之一</li>
         <li><i class="fa-solid fa-mug-hot"></i> 山中小木屋休息 · 熱朱古力配瑞士傳統蛋糕</li>
@@ -337,15 +318,15 @@ footer a { color: #2d6a9f; text-decoration: none; }
       <div class="day-transport"><i class="fa-solid fa-clock"></i> 🚃 地下纜車 3分鐘 · 纜車接駁上 Rothorn ~20分鐘</div>
     </div>
 
-    <!-- Day 9 -->
+    <!-- Day 8 -->
     <div class="day-card day-ski">
       <div class="day-header">
-        <div><span class="day-num">Day 9</span><br><span class="day-date">12月2日 星期三</span></div>
+        <div><span class="day-num">Day 8</span><br><span class="day-date">12月2日 星期三</span></div>
         <span class="day-country country-ski">⛷️ 滑雪 Day 2</span>
       </div>
       <div class="day-route">⛷️ Matterhorn Glacier Paradise 冰川滑雪</div>
       <ul class="day-activities">
-        <li><i class="fa-solid fa-cable-car"></i> <strong>Matterhorn Glacier Paradise</strong> <sup class="mk-badge mk-ski">11</sup> (3,883m) — 歐洲最高纜車站 · 三段纜車直達</li>
+        <li><i class="fa-solid fa-cable-car"></i> <strong>Matterhorn Glacier Paradise</strong> <sup class="mk-badge mk-ski">9</sup> (3,883m) — 歐洲最高纜車站 · 三段纜車直達</li>
         <li><i class="fa-solid fa-person-skiing"></i> 冰川滑雪區 — 全年開放的冰川雪道 · 寬闊藍道 · 360° 看 38 座 4,000m+ 山峰</li>
         <li><i class="fa-solid fa-utensils"></i> 山頂餐廳午餐 · 3,883m 高空用餐體驗</li>
         <li><i class="fa-solid fa-mug-hot"></i> 午後繼續滑雪或返回小鎮休息</li>
@@ -353,16 +334,16 @@ footer a { color: #2d6a9f; text-decoration: none; }
       <div class="day-transport"><i class="fa-solid fa-clock"></i> 🚠 三段纜車約 30 分鐘到達山頂 · 冰川雪道保證有雪</div>
     </div>
 
-    <!-- Day 10 -->
+    <!-- Day 9 -->
     <div class="day-card day-transit">
       <div class="day-header">
-        <div><span class="day-num">Day 10</span><br><span class="day-date">12月3日 星期四</span></div>
+        <div><span class="day-num">Day 9</span><br><span class="day-date">12月3日 星期四</span></div>
         <span class="day-country country-transit">☕ 休息日</span>
       </div>
       <div class="day-route">☕ 滑雪休息日 · Gornergrat 觀景 + SPA</div>
       <ul class="day-activities">
-        <li><i class="fa-solid fa-train"></i> <strong>Gornergrat 觀景火車</strong> <sup class="mk-badge mk-ski">13</sup> — 33分鐘爬升 1,469m 至 3,089m (建議搭 7:00 首班 · 坐右側)</li>
-        <li><i class="fa-solid fa-camera-retro"></i> <strong>Riffelsee 湖</strong> <sup class="mk-badge mk-ski">13</sup> — 著名馬特洪峰倒影拍攝點 (早上風平浪靜 · 午後起風)</li>
+        <li><i class="fa-solid fa-train"></i> <strong>Gornergrat 觀景火車</strong> <sup class="mk-badge mk-ski">11</sup> — 33分鐘爬升 1,469m 至 3,089m (建議搭 7:00 首班 · 坐右側)</li>
+        <li><i class="fa-solid fa-camera-retro"></i> <strong>Riffelsee 湖</strong> <sup class="mk-badge mk-ski">11</sup> — 著名馬特洪峰倒影拍攝點 (早上風平浪靜 · 午後起風)</li>
         <li><i class="fa-solid fa-store"></i> Zermatt 小鎮逛街 · 瑞士名錶、巧克力手信</li>
         <li><i class="fa-solid fa-spa"></i> 午後 SPA 放鬆 — 推薦 Mountain Spa 或酒店溫泉</li>
         <li><i class="fa-solid fa-utensils"></i> 晚餐：<strong>Chez Vrony</strong> 或 <strong>Findlerhof</strong> 傳統瑞士山中小屋料理</li>
@@ -370,45 +351,45 @@ footer a { color: #2d6a9f; text-decoration: none; }
       <div class="day-transport"><i class="fa-solid fa-clock"></i> 🚂 Gornergrat 來回約 2hr · 觀景台停留 1-2hr · 全日輕鬆節奏</div>
     </div>
 
-    <!-- Day 11 -->
+    <!-- Day 10 -->
     <div class="day-card day-ski">
       <div class="day-header">
-        <div><span class="day-num">Day 11</span><br><span class="day-date">12月4日 星期五</span></div>
+        <div><span class="day-num">Day 10</span><br><span class="day-date">12月4日 星期五</span></div>
         <span class="day-country country-ski">⛷️ 滑雪 Day 3</span>
       </div>
       <div class="day-route">⛷️ 最後滑雪日 — 自由選擇最愛雪道</div>
       <ul class="day-activities">
-        <li><i class="fa-solid fa-person-skiing"></i> 自由選擇最愛滑雪區重溫 (推薦再次前往 <strong>Matterhorn Glacier Paradise</strong> <sup class="mk-badge mk-ski">11</sup>)</li>
-        <li><i class="fa-solid fa-flag-checkered"></i> 或挑戰 International Run 滑到意大利 Cervinia (需國際滑雪證 · 單程約 10km)</li>
+        <li><i class="fa-solid fa-person-skiing"></i> 自由選擇最愛滑雪區重溫 (推薦再次前往 <strong>Matterhorn Glacier Paradise</strong> <sup class="mk-badge mk-ski">9</sup>)</li>
+        <li><i class="fa-solid fa-flag-checkered"></i> 或挑戰 International Run 滑到意大利 Cervinia（持 International 國際證即可 · 單程約 10km）</li>
         <li><i class="fa-solid fa-mountain"></i> 最後一次從 3,883m 俯瞰阿爾卑斯群山</li>
         <li><i class="fa-solid fa-utensils"></i> 山頂告別午餐 · 瑞士 Raclette 烤芝士</li>
       </ul>
       <div class="day-transport"><i class="fa-solid fa-clock"></i> 🚠 最後一天滑雪 · 傍晚收拾行李準備明日出發</div>
     </div>
 
-    <!-- Day 12 -->
+    <!-- Day 11 -->
     <div class="day-card day-italy">
       <div class="day-header">
-        <div><span class="day-num">Day 12</span><br><span class="day-date">12月5日 星期六</span></div>
+        <div><span class="day-num">Day 11</span><br><span class="day-date">12月5日 星期六</span></div>
         <span class="day-country country-italy">🇮🇹 米蘭</span>
       </div>
       <div class="day-route">🚂 告別 Zermatt → 🚗 Simplon Pass → 🚗 米蘭中午抵達 · 下午購物</div>
       <ul class="day-activities">
         <li><i class="fa-solid fa-train"></i> 早晨：穿梭火車 Zermatt → Täsch (12分鐘) · 取車出發 (~7:00)</li>
-        <li><i class="fa-solid fa-mountain"></i> <strong>Simplon Pass</strong> <sup class="mk-badge mk-swiss">14</sup> (2,005m) — 拿破崙阿爾卑斯山道 · 冬季雪景壯觀</li>
+        <li><i class="fa-solid fa-mountain"></i> <strong>Simplon Pass</strong> <sup class="mk-badge mk-swiss">12</sup> (2,005m) — 拿破崙阿爾卑斯山道 · 冬季雪景壯觀</li>
         <li><i class="fa-solid fa-bridge"></i> Simplon Hospiz 歷史高山旅館 · 9m 石鷹紀念碑</li>
         <li><i class="fa-solid fa-car"></i> 直奔米蘭（約 2-2.5hr）· 目標中午前抵達</li>
         <li><i class="fa-solid fa-hotel"></i> 入住 <strong>UNA Hotels Century Milano</strong> <br><small style="color:#64748b">25/B Via Fabio Filzi · 20124 Milan · 近米蘭中央車站</small></li>
-        <li><i class="fa-solid fa-shop"></i> 下午：<strong>Galleria Vittorio Emanuele II</strong> <sup class="mk-badge mk-italy">16</sup> + Quadrilatero della Moda 購物</li>
+        <li><i class="fa-solid fa-shop"></i> 下午：<strong>Galleria Vittorio Emanuele II</strong> <sup class="mk-badge mk-italy">14</sup> + Quadrilatero della Moda 購物</li>
         <li><i class="fa-solid fa-utensils"></i> 告別晚餐：米蘭經典菜式 — Risotto alla Milanese + Ossobuco</li>
       </ul>
       <div class="day-transport"><i class="fa-solid fa-clock"></i> 🚂 Zermatt→Täsch 12min · 🚗 Täsch→Simplon→米蘭 ~3-3.5hr · ⚠️ 冬季胎+雪鏈</div>
     </div>
 
-    <!-- Day 13 -->
+    <!-- Day 12 -->
     <div class="day-card day-flight">
       <div class="day-header">
-        <div><span class="day-num">Day 13</span><br><span class="day-date">12月6日 星期日</span></div>
+        <div><span class="day-num">Day 12</span><br><span class="day-date">12月6日 星期日</span></div>
         <span class="day-country country-transit">✈ 返程</span>
       </div>
       <div class="day-route">🇮🇹 米蘭 → 🇭🇰 香港</div>
@@ -421,86 +402,35 @@ footer a { color: #2d6a9f; text-decoration: none; }
 
     <!-- HK → Athens Flight Route -->
     <div class="section-title"><i class="fa-solid fa-plane"></i> 香港 → 雅典航班路線</div>
-    <div class="transport-card" style="max-width:100%; margin-bottom:10px;">
-      <h4><i class="fa-solid fa-route" style="color:#0d5eaf;"></i> 🚕 香港 → SZX → ✈ BRU → ✈ ATH</h4>
+    <div class="transport-card" style="max-width:100%; margin-bottom:16px;">
+      <h4><i class="fa-solid fa-route" style="color:#0d5eaf;"></i> 🚇 香港 → HKG → ✈ 多哈 DOH → ✈ 雅典 ATH</h4>
       <table class="daytrip-table">
         <thead>
-          <tr><th>段</th><th>方式</th><th>路線</th><th>時間</th></tr>
+          <tr><th>段</th><th>方式</th><th>路線</th><th>時間</th><th>詳情</th></tr>
         </thead>
         <tbody>
-          <tr><td><strong>1</strong></td><td>🚕 的士</td><td>香港 → SZX</td><td>~1-1.5hr</td></tr>
-          <tr><td><strong>2</strong></td><td>✈ HU7059</td><td>SZX 01:35 → BRU 07:05</td><td>~11.5hr</td></tr>
-          <tr><td><strong>3</strong></td><td>✈ 轉機</td><td>BRU 11:25 → ATH 15:25</td><td>~3hr</td></tr>
+          <tr><td><strong>1</strong></td><td>🚇 機場快綫</td><td>香港市區 → HKG</td><td>~24min</td><td>11/25 晚上出發 · 建議 22:30 前抵達</td></tr>
+          <tr><td><strong>2</strong></td><td>✈ QR815</td><td>HKG 00:25 → DOH 04:15</td><td>~9hr</td><td>卡塔爾航空 · 11/26 凌晨起飛 · 機上過夜</td></tr>
+          <tr><td><strong>3</strong></td><td>✈ QR203</td><td>DOH 07:20 → ATH 11:20</td><td>~5hr</td><td>多哈 Hamad 國際機場轉機 ~3hr · 11/26 中午抵達雅典</td></tr>
         </tbody>
       </table>
-      <div class="note" style="margin-top:8px;">海南航空 · 布魯塞爾轉機 · 11/25 15:25 抵達雅典</div>
+      <div class="note" style="margin-top: 10px;">總旅程時間：香港出發至雅典抵達約 18 小時（含轉機）· 11/26 約 11:20 抵達 ATH · 到達時間以機票為準</div>
     </div>
-
-    <!-- Athens Day Trip Options -->
-    <div class="section-title"><i class="fa-solid fa-route"></i> 雅典一日遊選項（Day 4 · 11/27）</div>
-    <div class="transport-card" style="max-width:100%; margin-bottom:10px;">
-      <h4><i class="fa-solid fa-car-side" style="color:#0d5eaf;"></i> 自駕或公共交通可達的 Day Trip 目的地</h4>
-      <table class="daytrip-table">
-        <thead>
-          <tr><th>目的地</th><th>距離</th><th>時間</th><th>亮點</th><th></th></tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>Corinth 科林斯</strong> <sup class="mk-badge mk-greece">3</sup></td>
-            <td>~80km</td><td>1-1.5hr</td>
-            <td>運河 · 阿波羅神廟 · 城堡</td>
-            <td><span class="feasible">✅</span></td>
-          </tr>
-          <tr>
-            <td><strong>Cape Sounion</strong> <sup class="mk-badge mk-greece">4</sup></td>
-            <td>~70km</td><td>1-1.5hr</td>
-            <td>海神廟 · 愛琴海日落</td>
-            <td><span class="feasible">✅</span></td>
-          </tr>
-          <tr>
-            <td><strong>Delphi 德爾菲</strong></td>
-            <td>~180km</td><td>2.5hr</td>
-            <td>神諭所 UNESCO · 古劇場</td>
-            <td><span class="feasible">✅</span></td>
-          </tr>
-          <tr>
-            <td><strong>Mycenae + Nafplio</strong></td>
-            <td>~120km</td><td>1.5-2hr</td>
-            <td>邁錫尼獅子門 · 海邊小鎮</td>
-            <td><span class="feasible">✅</span></td>
-          </tr>
-          <tr>
-            <td><strong>Hydra 伊茲拉島</strong></td>
-            <td>~70km</td><td>1.5hr 船</td>
-            <td>無車島 · 驢子代步</td>
-            <td><span class="warn">⚠️</span></td>
-          </tr>
-          <tr>
-            <td><strong>Zakynthos 扎金索斯</strong></td>
-            <td>~300km</td><td>5hr 車+船</td>
-            <td>沉船灣 · 藍洞 · 太遠</td>
-            <td><span class="no">❌</span></td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="note" style="margin-top:8px;"><strong>推薦：</strong>Corinth 科林斯 — 1hr 直達 · 一天輕鬆睇運河+古遺址+城堡</div>
-    </div>
-
     <!-- Transport Overview -->
     <div class="section-title"><i class="fa-solid fa-route"></i> 交通總覽</div>
 
     <div class="transport-grid">
       <div class="transport-card">
-        <h4><i class="fa-solid fa-plane" style="color:#8b5cf6;"></i> ✈ 第一程：香港 → 深圳 → 雅典 (11/24-25)</h4>
-        <div class="flight-row"><span>香港 → SZX</span><span class="flight-no">🚕 的士</span><span class="flight-time">~1-1.5hr</span></div>
-        <div class="flight-row"><span>SZX → BRU</span><span class="flight-no">HU7059</span><span class="flight-time">01:35→07:05 · ~11.5hr</span></div>
-        <div class="flight-row"><span>BRU → ATH</span><span class="flight-no">轉機</span><span class="flight-time">11:25→15:25 · ~3hr</span></div>
-        <div class="note">海南航空 · 布魯塞爾轉機 · 11/25 15:25 抵達雅典</div>
+        <h4><i class="fa-solid fa-plane" style="color:#8b5cf6;"></i> ✈ 第一程：香港 → 多哈 → 雅典 (11/25-26)</h4>
+        <div class="flight-row"><span>香港 → HKG</span><span class="flight-no">🚇 機場快綫</span><span class="flight-time">~24min</span></div>
+        <div class="flight-row"><span>HKG → DOH</span><span class="flight-no">QR815</span><span class="flight-time">00:25→04:15 · ~9hr</span></div>
+        <div class="flight-row"><span>DOH → ATH</span><span class="flight-no">QR203</span><span class="flight-time">07:20→11:20 · ~5hr</span></div>
+        <div class="note">卡塔爾航空 · 多哈轉機 ~3hr · 11/26 約 11:20 抵達雅典</div>
       </div>
       <div class="transport-card">
         <h4><i class="fa-solid fa-plane" style="color:#8b5cf6;"></i> ✈ 第二程：雅典 → 米蘭 (11/28)</h4>
         <div class="flight-row"><span>ATH → MXP</span><span class="flight-no">A3660</span><span class="flight-time">08:35→10:10 · ~2.5hr</span></div>
-        <div class="note">Aegean Airlines Airbus A320 · 同日早上抵達即開始自駕</div>
+        <div class="note">Aegean Airlines Airbus A320 · 前晚入住機場 Holiday Inn · 接駁車約 10 分鐘 · 同日早上抵達米蘭即開始自駕</div>
       </div>
       <div class="transport-card">
         <h4><i class="fa-solid fa-plane-arrival" style="color:#8b5cf6;"></i> ✈ 回程航班 (12/6)</h4>
@@ -528,17 +458,156 @@ footer a { color: #2d6a9f; text-decoration: none; }
       <div class="note" style="color:#475569;font-size:0.85rem;line-height:1.7;">
         <strong>🇬🇷 雅典注意事項：</strong>11月底氣溫約 10-18°C · 衛城 8:00 開門（建議第一批入場）· 聯票 €30 含 7 古蹟 · 與香港時差 6 小時（冬令）<br><br>
         <strong>🏔️ Zermatt 無車政策：</strong>私家車只能停在 Täsch，必須轉乘穿梭火車進入。建議攜帶小行李袋而非大行李箱。<br><br>
-        <strong>⛷️ 滑雪通行證：</strong>如需滑到意大利 Cervinia，必須購買 International Skipass。沒有國際證誤入意大利側需 ~€900 搭4小時計程車返回。<br><br>
+        <strong>⛷️ 滑雪通行證：</strong>需滑到意大利 Cervinia 必須買 International Skipass（含兩國雪道，誤入意大利側無證需 ~€900 的士回程）。票種選擇與購買詳見下方「Zermatt 滑雪通行證攻略」。<br><br>
         <strong>🌨️ Simplon Pass 冬季駕駛：</strong>海拔 2,005m · 冬季胎為法律要求 · 強烈建議攜帶雪鏈 · 出發前查詢 Alpen-pässe 路況網站。<br><br>
         <strong>🎿 12月初雪況：</strong>Zermatt 冰川區海拔 3,883m 保證有雪 · 歷史12月雪深約 150-200cm · 雪質評分高達 98-100。<br><br>
-        <strong>🚗 瑞士高速公路 Vignette：</strong>必須購買 CHF 40 年票貼紙，可在邊境/加油站購買。<br><br>
+        <strong>🚗 自駕路費（米蘭→Zermatt）：</strong>意大利 A8/A9 高速 MXP→Chiasso 按段收費約 €3（藍色車道刷卡即可；租車公司未必含 Telepass，取車時問清楚）。進入瑞士高速公路前必須買 <strong>Vignette 年票 CHF 40</strong>（邊境/加油站有售，無票罰 CHF 200）——去 Grindelwald 必經 A2 Gotthard 隧道。Kandersteg 汽車火車 CHF 28（週一至四）/ 31（週末）。Täsch 停車場約 CHF 17/天。回程 Simplon 屬普通公路，免費、不需貼紙。<br><br>
         <strong>📱 SIM 卡：</strong>希臘和瑞士均非歐盟漫遊區，建議分開購買或使用 eSIM 漫遊計劃。
       </div>
     </div>
+    <div class="section-title" style="margin-top:24px;"><i class="fa-solid fa-ticket"></i> ⛷️ Zermatt 滑雪通行證攻略</div>
+    <div class="transport-card" style="max-width:100%; margin-bottom:16px;">
+      <h4><i class="fa-solid fa-ticket" style="color:#0072ce;"></i> 通行證種類（2026/27 冬季 · 11/1 – 2027/5/2）</h4>
+      <table class="daytrip-table">
+        <thead><tr><th>票種</th><th>範圍</th><th>適合</th><th>參考價（起 · CHF）</th></tr></thead>
+        <tbody>
+          <tr><td><strong>International 國際證</strong></td><td>Zermatt 瑞士側 200km + Cervinia/Valtournenche 意大利側 160km · 合共 360km</td><td><span class="feasible">✅ 我們推薦</span></td><td>1天 104 · 4天 301 · 7天 492（動態定價）</td></tr>
+          <tr><td><strong>Zermatt 本地證</strong></td><td>只限瑞士側 Sunnegga / Gornergrat / Glacier Paradise</td><td>確定不滑去意大利</td><td>1 天 92</td></tr>
+          <tr><td><strong>Flex 彈性票</strong></td><td>2 in 4 / 3 in 5 / 4 in 6 等，期限內任選天數</td><td>雪日分散、行程未定</td><td>2 in 4 197 · <strong>3 in 5 295</strong> · 4 in 6 393 · 5 in 7 493 · 6 in 8 590</td></tr>
+        </tbody>
+      </table>
+      <h4 style="margin-top:16px;"><i class="fa-solid fa-map" style="color:#0072ce;"></i> 滑雪區域一覽（2026/27 冬季 · 12/1–12/4 全區計劃開放中）</h4>
+      <table class="daytrip-table">
+        <thead><tr><th>區域</th><th>預計開放</th><th>交通方式</th><th>難度</th><th>雪道長度</th><th>建議時間</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>Sunnegga–Rothorn</strong><br>2,288–3,103m</td>
+            <td>11/28 起<br>至 2027/4/11</td>
+            <td>Sunnegga 地下纜車 3-4min 鎮中心直達 + Blauherd/Rothorn 纜車吊椅（2026/27 新開 Patrullarve 6人吊椅）</td>
+            <td>藍/紅為主 · 陽光最足 · Wolli 初學者公園 · 中級天堂</td>
+            <td>~60-70km</td>
+            <td>半天–1天</td>
+          </tr>
+          <tr>
+            <td><strong>Gornergrat</strong><br>至 3,089m</td>
+            <td>11/28 起<br>至 2027/4/18</td>
+            <td>齒軌火車 33min · Riffelalp / Riffelberg / Rotenboden 中途可上落</td>
+            <td>紅道為主 · Riffelberg 藍道 · Triftji 蘑菇田（高級）</td>
+            <td>~60-70km</td>
+            <td>半天–1天</td>
+          </tr>
+          <tr>
+            <td><strong>Matterhorn Glacier Paradise</strong>（含 Schwarzsee）<br>3,883m</td>
+            <td>11/1 起全年<br>（Matterhorn Express 11/14 起）</td>
+            <td>Matterhorn Express 吊廂（Furi→Schwarzsee→Trockener Steg）+ Glacier Ride 至 3,883m · 約 30-40min</td>
+            <td>冰川藍/紅寬道 · Furgg 黑道 · 最長雪道 Klein Matterhorn→Zermatt 16km · 落差 2,279m</td>
+            <td>~60-70km</td>
+            <td>1 天</td>
+          </tr>
+          <tr>
+            <td><strong>Cervinia / Valtournenche</strong>（意大利側 · 國際證含）</td>
+            <td>Cervinia 10/24 起<br>Valtournenche 11/28 起</td>
+            <td>由 Glacier Paradise 經 Testa Grigia 滑落過境（Glacier Ride II 段 · 3天以上票含）</td>
+            <td>寬闊藍/紅巡航 · Ventina 11km 著名紅道 · Plan Maison 藍道區</td>
+            <td>157km 全網<br>（藍39/紅107/黑12）</td>
+            <td>1 天（可與上區同日）</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="note" style="margin-top:8px;">全域合計 ~360km（藍 74 / 紅 227 / 黑 20 / 黃野雪道 36）· 紅道為主、幾乎無綠道，適合有信心的中級以上滑雪者 · 12/1–12/4 屬季初，各區開放以官網當日為準（Glacier Paradise 冰川區保證有雪）</div>
+      <h4 style="margin-top:16px;"><i class="fa-solid fa-ticket-simple" style="color:#0072ce;"></i> 其他特殊雪票（國際證以外）</h4>
+      <table class="daytrip-table">
+        <thead><tr><th>票種</th><th>適用</th><th>範圍</th><th>參考價</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Zermatt 本地證</strong></td><td>只滑瑞士側</td><td>三大區 200km（不含意大利）</td><td>1 日起 ~CHF 92</td></tr>
+          <tr><td><strong>Flex 彈性票</strong></td><td>雪日分散</td><td>2 in 4 / 3 in 5 / 4 in 6 / 5 in 7 / 6 in 8 / 5 in season</td><td>197 / 295 / 393 / 493 / 590 起 · 5 in season 570</td></tr>
+          <tr><td><strong>Peak Pass 觀光票</strong></td><td>不滑雪純觀光</td><td>Gornergrat 火車 + Glacier Paradise 纜車 + Sunnegga/Blauherd/Rothorn + Täsch 火車 + 鎮內巴士（不含滑雪吊椅）</td><td>冬季 1 日起 ~CHF 190</td></tr>
+          <tr><td><strong>午後票 Zermatt</strong></td><td>下午才上山</td><td>只限瑞士側 · 不含 Glacier Paradise</td><td>官網查詢</td></tr>
+          <tr><td><strong>單程觀光票</strong></td><td>只上一座山觀光</td><td>Gornergrat 火車來回 · Glacier Paradise 纜車來回 · Sunnegga 來回（分開定價）</td><td>CHF 102 / 104-143 / 19-26（冬季）</td></tr>
+          <tr><td><strong>季票</strong></td><td>整個雪季</td><td>國際全區 360km</td><td>起 1,850（全年證 2,290）</td></tr>
+        </tbody>
+      </table>
+      <div class="note" style="margin-top:8px;">12/3 休息日小貼士：持 4 天滑雪證帶雪具上 Gornergrat 觀景免費（滑一小段即可）；純觀光則買單程觀光票（Gornergrat 來回 CHF 102）或 1 天 Peak Pass。</div>
+
+      <h4 style="margin-top:16px;"><i class="fa-solid fa-coins" style="color:#0072ce;"></i> 價格參考 — International 國際證（2026/27 動態定價「起」價 · CHF）</h4>
+      <table class="daytrip-table">
+        <thead><tr><th>天數</th><th>1 天</th><th>2 天</th><th>3 天</th><th>4 天</th><th>5 天</th><th>6 天</th><th>7 天</th></tr></thead>
+        <tbody><tr><td><strong>起價</strong></td><td>104</td><td>161</td><td>232</td><td><strong style="color:#0072ce;">301</strong></td><td>372</td><td>432</td><td>492</td></tr></tbody>
+      </table>
+      <div class="note">動態定價按日期浮動（12 月初屬季初低價段）· 官網 calculator 可查當日準確價 · 兒童 (9-15.99) 半價 · 青年 (16-19.99) 85折 · 9 歲以下免費 (Wolli Card)</div>
+      <h4 style="margin-top:16px;"><i class="fa-solid fa-circle-check" style="color:#0072ce;"></i> ✅ 我們的推薦：4 天 International 國際證（12/1 – 12/4）</h4>
+      <div class="note" style="color:#475569;font-size:0.85rem;line-height:1.7;">
+        滑雪日為 12/1、12/2、12/4（12/3 休息去 Gornergrat），直接買 <strong>4 天連續 International 證</strong>（起價 CHF 301）最省心：<br>
+        ① 比「3 天證 + 1 天單日票」組合（232 + 104 = CHF 336）更便宜；<br>
+        ② 12/3 休息日萬一想滑半天也能滑（例如上午滑雪、下午 Gornergrat）；<br>
+        ③ 3 天以上連續票包含 Glacier Paradise → Testa Grigia 下坡段（1-2 天票不含）；<br>
+        ④ 想滑去意大利 Cervinia 不需再補任何票。<br>
+        若確定只滑 3 天：Flex「3 in 5」起價 CHF 295，比 3 天連續證（CHF 232）更貴、且不含 Testa Grigia 段 → 除非雪日完全未定，否則直接買連續票更划算。
+      </div>
+      <h4 style="margin-top:16px;"><i class="fa-solid fa-cart-shopping" style="color:#0072ce;"></i> 購買與取票（最省事流程）</h4>
+      <div class="note" style="color:#475569;font-size:0.85rem;line-height:1.7;">
+        <strong>① 官網提前買：</strong>matterhornparadise.ch 或 zermatt.swiss 選日期購買，付款後收到 QR code（最早可提前至使用前數分鐘購買，動態定價越早越平）。<br>
+        <strong>② 手機票（最省心）：</strong>下載 Matterhorn App 將票載入手機，閘機藍牙感應直接入閘，完全不用排隊。<br>
+        <strong>③ 自助機取實體卡：</strong>或憑 QR code 在 Täsch / Zermatt 山谷站的 12 部自助機取卡（無卡收 CHF 5 押金，離場退卡退回）。<br>
+        <strong>④ 現場買：</strong>Täsch / Zermatt 售票處亦可，但旺季需排隊且可能比網上貴。
+      </div>
+      <h4 style="margin-top:16px;"><i class="fa-solid fa-person-skiing" style="color:#0072ce;"></i> 雪具租賃比較（4 天 · 中等水平雙板 + 雪鞋 + 雪杖 + 頭盔）</h4>
+      <table class="daytrip-table">
+        <thead><tr><th>雪具店</th><th>位置 / 最近車站</th><th>免費寄存?</th><th>4 天中等全套參考價</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong><a href="https://www.flexrent.ch/en/rental/rental-packages/ski-package/" target="_blank" rel="noopener">Flexrent ↗</a></strong></td>
+            <td>Matterstrasse 25 · 距 Sunnegga 纜車站 ~190m（4 分鐘）</td>
+            <td><span class="feasible">✅ 免費</span> — 客戶雪具存放於 Sunnegga/Rothorn 纜車站（烘鞋）</td>
+            <td><strong>CHF 193</strong>（4★ 4 天 168 + 頭盔 25）· 另 +10% 保險費 ≈ 212 · 5★ 版 241 · 官網明價</td>
+          </tr>
+          <tr>
+            <td><strong><a href="https://www.bayardsport.ch/en/rent/online-rental" target="_blank" rel="noopener">Bayard Sport ↗</a></strong></td>
+            <td>兩分店：Bahnhofplatz 2（Gornergrat 站旁）· Vispastrasse 32（Sunnegga 站旁）</td>
+            <td>租雪鞋免費過夜烘鞋 · 付費 locker 可選</td>
+            <td>~CHF 344 估算（Performance 55 + 雪鞋 21 + 頭盔 10 = 86/天 ×4）· 線上預訂 -10% ≈ 310</td>
+          </tr>
+          <tr>
+            <td><strong><a href="https://julensport-booking.ch/shop/julen-sport" target="_blank" rel="noopener">Julen Sport ↗</a></strong>（INTERSPORT）</td>
+            <td>Hofmattstrasse 4 · 距 Sunnegga 站 ~650m（13 分鐘）</td>
+            <td>未註明</td>
+            <td>~CHF 250-300 估算（Premium 全套装店內 CHF 81/天 起 · 6 天 €324）· 頭盔 €10/天</td>
+          </tr>
+          <tr>
+            <td><strong><a href="https://www.intersportrent.ch/en/product-list" target="_blank" rel="noopener">Intersport Rent ↗</a></strong>（Glacier 店）</td>
+            <td>Bahnhofstrasse 19 · 近火車站 / Gornergrat 站</td>
+            <td>纜車站官方寄存櫃 CHF 12/24h · 店鋪 Ski Depot 服務（條件見店）</td>
+            <td>起 ~€42/天（ren-to 指標價）· 無公開價目，以線上預訂報價為準</td>
+          </tr>
+          <tr>
+            <td><strong><a href="https://www.dorsaz-sport.ch/en/" target="_blank" rel="noopener">Dorsaz Sport ↗</a></strong>（INTERSPORT）</td>
+            <td>Schluhmattstrasse 121 · <strong>Matterhorn Express（Glacier Paradise）纜車站正旁</strong></td>
+            <td><span class="feasible">✅ 免費</span> — 租客免費寄存 + 自助 locker（烘鞋）</td>
+            <td>無公開價目 · 實測參考全套 CHF 72-87/天 → 4 天約 280-350 估算</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="note" style="margin-top:8px;">💡 <strong>我們的推薦：Dorsaz Sport</strong> —— 你們住 Firefly（Schluhmattstrasse 55）與該店同街，步行 ~5 分鐘即到 Matterhorn Express 站；3 個滑雪日有 2 天（12/2 Glacier Paradise · 12/4 Cervinia）從該站上山，晚上把雪具留在纜車站免費寄存烘鞋、隔天空手上山。12/1 Sunnegga 日步行 ~15 分鐘或搭電動巴士。若想價格最透明：<strong>Flexrent</strong>（4★ 4 天全套含頭盔 ≈ CHF 212），寄存點在 Sunnegga 站但去 Glacier 站需過鎮。多數店可提前一天 16:00 取貨（Dorsaz 確認），網上預訂常有 -10%（Bayard / Intersport）。</div>
+
+      <h4 style="margin-top:16px;"><i class="fa-solid fa-triangle-exclamation" style="color:#f59e0b;"></i> 注意事項</h4>
+      <div class="note" style="color:#475569;font-size:0.85rem;line-height:1.7;">
+        • 雪季 2026/11/1 – 2027/5/2 · 12 月初屬季初，Sunnegga/Rothorn 開放雪道以官網當日為準（Glacier Paradise 冰川區保證有雪）。<br>
+        • International 證含意大利 Cervinia/Valtournenche 160km 雪道，滑過境必須持有（誤入意大利側沒有國際證需自費 ~€900 的士回程）。<br>
+        • 通行證含 Zermatt 三大區所有纜車/火車/吊椅（Sunnegga Express · Gornergrat 火車 · Matterhorn Express + Glacier Ride 至 3,883m）+ Cervinia 意大利側 + 鎮內電動巴士 —— 滑雪日從鎮上到任何山頂零額外交通費。<br>
+        • 唯一例外：Täsch↔Zermatt 穿梭火車屬公共交通，需另購（來回 ~CHF 17）。<br>
+        • Gornergrat 火車僅限冬季運動用途免費 —— 12/3 純觀光日需另購步行票（或帶雪具上去滑一小段即免費）。<br>
+        • 1 日和 2 日票不包含 Matterhorn Glacier Paradise → Testa Grigia 下坡段，需另購。
+      </div>
+    </div>
+      <div class="section-title" style="margin-top:20px;"><i class="fa-solid fa-map"></i> 🗺️ Zermatt 官方滑雪地圖（Winter 2026/27）</div>
+      <div class="transport-card" style="padding:6px;">
+        <iframe src="https://zermatt.a.bigcontent.io/v1/static/Winter-2026-2027" title="Zermatt 官方滑雪地圖 Winter 2026/27 (PDF)" style="width:100%; height:70vh; min-height:420px; border:1px solid #e2e8f0; border-radius:8px; background:#fff;" loading="lazy"></iframe>
+        <div class="note" style="text-align:center; padding:8px 0 2px;">官方滑雪地圖（PDF）。無法顯示時<a href="https://zermatt.a.bigcontent.io/v1/static/Winter-2026-2027" target="_blank" rel="noopener">在新視窗開啟 ↗</a></div>
+      </div>
   </div>
 </div><!-- Footer -->
 <footer>
-  <p>旅行資訊來源：Zermatt Tourism · Switzerland Tourism · Visit Greece · Aegean Airlines · Cathay Pacific · Wikivoyage · Wikipedia</p>
+  <p>旅行資訊來源：Zermatt Tourism · Matterhorn Paradise · Switzerland Tourism · Visit Greece · Qatar Airways · Aegean Airlines · Cathay Pacific · Wikivoyage · Wikipedia · Schneehöhen</p>
   <p>地圖：<a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> · 航班資料參考各航空公司官網 · 路況查詢：Alpen-pässe</p>
   <p style="margin-top: 6px;">Made for personal travel planning · 2026</p>
 </footer>
@@ -553,64 +622,58 @@ function img(name) { return 'images/' + name; }
 
 var markers = [
   { id: 0, lat: 22.308, lng: 113.918, name: '香港國際機場 HKG', en: 'Hong Kong Intl Airport',
-    desc: '出發點 · 晚機經轉機飛雅典 (11/24)',
+    desc: '出發點 · QR815 經多哈轉機飛雅典 (11/25 晚 → 11/26 凌晨 00:25 起飛)',
     img: '', link: '', cls: 'marker-hk', day: 1 },
   { id: 1, lat: 37.936, lng: 23.947, name: '雅典國際機場 ATH', en: 'Athens Intl Airport Eleftherios Venizelos',
-    desc: '11/25 中午前後抵達 · 11/28 A3660 飛米蘭',
+    desc: '11/26 約 11:20 抵達 · 11/28 A3660 飛米蘭',
     img: '', link: '', cls: 'marker-transport', day: 2 },
   { id: 2, lat: 37.971, lng: 23.726, name: '雅典衛城 Acropolis', en: 'Acropolis of Athens · Plaka',
     desc: 'Parthenon 巴特農神殿 · 衛城博物館 · Plaka 舊城區 · Monastiraki 市集 · Ancient Agora',
     img: '', link: 'https://en.wikipedia.org/wiki/Acropolis_of_Athens', cls: 'marker-greece', day: 3 },
-  { id: 3, lat: 37.939, lng: 22.931, name: '科林斯 Corinth', en: 'Corinth Canal & Ancient Corinth',
-    desc: 'Corinth Canal 運河（80m 懸崖）· 古科林斯阿波羅神廟 · Acrocorinth 山頂城堡',
-    img: '', link: 'https://en.wikipedia.org/wiki/Corinth', cls: 'marker-greece', day: 4 },
-  { id: 4, lat: 37.649, lng: 24.026, name: 'Cape Sounion 海神廟', en: 'Temple of Poseidon, Cape Sounion',
-    desc: '懸崖上的大理石神廟 · 愛琴海日落美景 · 下午出發即可',
-    img: '', link: 'https://en.wikipedia.org/wiki/Sounion', cls: 'marker-greece', day: 4 },
-  { id: 5, lat: 46.004, lng: 8.952, name: 'Lugano 盧加諾', en: 'Lugano, Ticino',
+  { id: 3, lat: 46.004, lng: 8.952, name: 'Lugano 盧加諾', en: 'Lugano, Ticino',
     desc: '瑞士意語區 · Lake Lugano 湖畔 · 地中海風情 · Via Nassa 購物街',
-    img: '', link: 'https://en.wikipedia.org/wiki/Lugano', cls: 'marker-swiss', day: 5 },
-  { id: 6, lat: 46.687, lng: 7.856, name: '因特拉肯 Interlaken', en: 'Interlaken - Jungfrau Viewpoint',
+    img: '', link: 'https://en.wikipedia.org/wiki/Lugano', cls: 'marker-swiss', day: 4 },
+  { id: 4, lat: 46.687, lng: 7.856, name: '因特拉肯 Interlaken', en: 'Interlaken - Jungfrau Viewpoint',
     desc: '圖恩湖與布里恩茨湖之間 · Höhematte 公園眺望 Eiger/Mönch/Jungfrau 三峰 · 滑翔傘勝地',
-    img: img('interlaken.jpg'), link: 'https://en.wikipedia.org/wiki/Interlaken', cls: 'marker-swiss', day: 6 },
-  { id: 7, lat: 46.626, lng: 8.039, name: 'Grindelwald 格林德瓦', en: 'Grindelwald - Eiger North Face',
+    img: img('interlaken.jpg'), link: 'https://en.wikipedia.org/wiki/Interlaken', cls: 'marker-swiss', day: 5 },
+  { id: 5, lat: 46.626, lng: 8.039, name: 'Grindelwald 格林德瓦', en: 'Grindelwald - Eiger North Face',
     desc: 'Eiger 北壁山下的童話小鎮 · First 纜車 · 典型瑞士木屋風光 · Jungfrau 地區明珠',
-    img: '', link: 'https://en.wikipedia.org/wiki/Grindelwald', cls: 'marker-swiss', day: 6 },
-  { id: 8, lat: 46.496, lng: 7.673, name: 'Kandersteg 汽車火車', en: 'Kandersteg - Lötschberg Car Train',
+    img: '', link: 'https://en.wikipedia.org/wiki/Grindelwald', cls: 'marker-swiss', day: 5 },
+  { id: 6, lat: 46.496, lng: 7.673, name: 'Kandersteg 汽車火車', en: 'Kandersteg - Lötschberg Car Train',
     desc: '汽車直接開上火車穿越 Alps 隧道 (Kandersteg→Goppenstein) · 僅15分鐘 · 瑞士獨特交通體驗',
-    img: img('kandersteg.jpg'), link: 'https://en.wikipedia.org/wiki/L%C3%B6tschberg_Tunnel', cls: 'marker-swiss', day: 7 },
-  { id: 9, lat: 46.068, lng: 7.776, name: 'Täsch 停車場 & 火車站', en: 'Täsch Parking & Shuttle Station',
+    img: img('kandersteg.jpg'), link: 'https://en.wikipedia.org/wiki/L%C3%B6tschberg_Tunnel', cls: 'marker-swiss', day: 6 },
+  { id: 7, lat: 46.068, lng: 7.776, name: 'Täsch 停車場 & 火車站', en: 'Täsch Parking & Shuttle Station',
     desc: 'Zermatt 前最後的汽車檢查點 · 大型室內停車場 (~CHF 24/2天) · 穿梭火車每20分鐘一班',
-    img: '', link: '', cls: 'marker-transport', day: 7 },
-  { id: 10, lat: 46.021, lng: 7.749, name: 'Zermatt 小鎮', en: 'Zermatt Village (1,620m)',
+    img: '', link: '', cls: 'marker-transport', day: 6 },
+  { id: 8, lat: 46.021, lng: 7.749, name: 'Zermatt 小鎮', en: 'Zermatt Village (1,620m)',
     desc: '無車小鎮 · 傳統木屋 Hinterdorf · 馬特洪峰山腳下的童話世界',
-    img: img('zermatt_village.jpg'), link: 'https://en.wikipedia.org/wiki/Zermatt', cls: 'marker-swiss', day: 7 },
-  { id: 11, lat: 45.937, lng: 7.730, name: 'Matterhorn Glacier Paradise', en: 'Matterhorn Glacier Paradise (3,883m)',
+    img: img('zermatt_village.jpg'), link: 'https://en.wikipedia.org/wiki/Zermatt', cls: 'marker-swiss', day: 6 },
+  { id: 9, lat: 45.937, lng: 7.730, name: 'Matterhorn Glacier Paradise', en: 'Matterhorn Glacier Paradise (3,883m)',
     desc: '歐洲最高纜車站 · 360° 觀景台看 38 座 4,000m+ 山峰 · 冰川滑雪全年開放',
-    img: img('glacier_paradise.jpg'), link: 'https://www.matterhornparadise.ch/en', cls: 'marker-ski', day: 9 },
-  { id: 12, lat: 46.017, lng: 7.772, name: 'Sunnegga 滑雪區', en: 'Sunnegga Paradise (2,288m)',
+    img: img('glacier_paradise.jpg'), link: 'https://www.matterhornparadise.ch/en', cls: 'marker-ski', day: 8 },
+  { id: 10, lat: 46.017, lng: 7.772, name: 'Sunnegga 滑雪區', en: 'Sunnegga Paradise (2,288m)',
     desc: '地下纜車 3 分鐘直達 · Rothorn (3,103m) 全景 · 中級滑雪者天堂',
-    img: img('sunnegga.jpg'), link: 'https://www.matterhornparadise.ch/en/sunnegga', cls: 'marker-ski', day: 8 },
-  { id: 13, lat: 45.983, lng: 7.785, name: 'Gornergrat 觀景台', en: 'Gornergrat (3,089m)',
+    img: img('sunnegga.jpg'), link: 'https://www.matterhornparadise.ch/en/sunnegga', cls: 'marker-ski', day: 7 },
+  { id: 11, lat: 45.983, lng: 7.785, name: 'Gornergrat 觀景台', en: 'Gornergrat (3,089m)',
     desc: '觀景火車 33 分鐘登頂 · 馬特洪峰全景最佳位置 · Riffelsee 倒影湖',
-    img: img('gornergrat.jpg'), link: 'https://en.wikipedia.org/wiki/Gornergrat', cls: 'marker-ski', day: 10 },
-  { id: 14, lat: 46.251, lng: 8.033, name: 'Simplon Pass 山口', en: 'Simplon Pass (2,005m)',
+    img: img('gornergrat.jpg'), link: 'https://en.wikipedia.org/wiki/Gornergrat', cls: 'marker-ski', day: 9 },
+  { id: 12, lat: 46.251, lng: 8.033, name: 'Simplon Pass 山口', en: 'Simplon Pass (2,005m)',
     desc: '拿破崙時代修建的阿爾卑斯通道 · 冬季雪景壯麗 · 鷹紀念碑 · 歷史 Hospiz 旅館',
-    img: img('simplon_pass.jpg'), link: 'https://en.wikipedia.org/wiki/Simplon_Pass', cls: 'marker-swiss', day: 12 },
-  { id: 15, lat: 45.630, lng: 8.726, name: '米蘭 MXP 機場', en: 'Milan Malpensa Airport (MXP)',
+    img: img('simplon_pass.jpg'), link: 'https://en.wikipedia.org/wiki/Simplon_Pass', cls: 'marker-swiss', day: 11 },
+  { id: 13, lat: 45.630, lng: 8.726, name: '米蘭 MXP 機場', en: 'Milan Malpensa Airport (MXP)',
     desc: 'CX234 返港出發 (~11:45) · 米蘭市中心駕車 45 分鐘',
-    img: '', link: '', cls: 'marker-transport', day: 13 },
-  { id: 16, lat: 45.464, lng: 9.192, name: '米蘭市中心', en: 'Milan - Duomo & Galleria & Shopping',
+    img: '', link: '', cls: 'marker-transport', day: 12 },
+  { id: 14, lat: 45.464, lng: 9.192, name: '米蘭市中心', en: 'Milan - Duomo & Galleria & Shopping',
     desc: '米蘭大教堂 Duomo · Galleria Vittorio Emanuele II 購物長廊 · Quadrilatero della Moda 名店街',
-    img: img('duomo_milan.jpg'), link: 'https://en.wikipedia.org/wiki/Milan', cls: 'marker-italy', day: 12 }
+    img: img('duomo_milan.jpg'), link: 'https://en.wikipedia.org/wiki/Milan', cls: 'marker-italy', day: 11 }
 ];
 
 /* ===== MAP SETUP ===== */
 var map = L.map('map', { zoomSnap: 0.25 }).setView([42.5, 14.5], 5.5);
 
-L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/">CARTO</a>',
-  subdomains: 'abcd', maxZoom: 19
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  maxZoom: 19
 }).addTo(map);
 
 var markerLayers = [];
@@ -636,7 +699,7 @@ markers.forEach(function(m) {
 
 /* ===== ROUTE LINES ===== */
 // HK → ATH flight
-L.polyline([[22.308, 113.918], [37.936, 23.947]], { color: '#8b5cf6', weight: 3, dashArray: '10, 8', opacity: 0.7 }).addTo(map);
+L.polyline([[22.308, 113.918], [25.273, 51.608], [37.936, 23.947]], { color: '#8b5cf6', weight: 3, dashArray: '10, 8', opacity: 0.7 }).addTo(map);
 // ATH → MXP flight
 L.polyline([[37.936, 23.947], [45.630, 8.726]], { color: '#8b5cf6', weight: 3, dashArray: '10, 8', opacity: 0.7 }).addTo(map);
 // MXP → Lugano → Interlaken → Grindelwald
@@ -700,20 +763,18 @@ var nameToMarker = {
   '香港國際機場 HKG': 0,
   '雅典國際機場 ATH': 1,
   'Plaka 舊城區': 2, 'Monastiraki 跳蚤市場': 2, 'Acropolis 衛城': 2, 'Ancient Agora 古市集': 2,
-  'Corinth 科林斯': 3,
-  'Cape Sounion': 4,
-  'Lugano 盧加諾': 5,
-  'Interlaken 因特拉肯': 6, '因特拉肯 Interlaken': 6,
-  'Grindelwald 格林德瓦': 7, '格林德瓦': 7,
-  'Kandersteg 汽車火車': 8, 'Lötschberg 汽車火車': 8,
-  'Täsch 停車場': 9,
-  'Zermatt 小鎮': 10,
-  'Matterhorn Glacier Paradise': 11,
-  'Sunnegga': 12,
-  'Gornergrat 觀景火車': 13, 'Gornergrat': 13, 'Riffelsee 湖': 13,
-  'Simplon Pass': 14,
-  '米蘭 MXP 機場': 15,
-  'Galleria Vittorio Emanuele II': 16, 'Quadrilatero della Moda': 16, '米蘭市中心': 16
+  'Lugano 盧加諾': 3,
+  'Interlaken 因特拉肯': 4, '因特拉肯 Interlaken': 4,
+  'Grindelwald 格林德瓦': 5, '格林德瓦': 5,
+  'Kandersteg 汽車火車': 6, 'Lötschberg 汽車火車': 6,
+  'Täsch 停車場': 7,
+  'Zermatt 小鎮': 8,
+  'Matterhorn Glacier Paradise': 9,
+  'Sunnegga': 10,
+  'Gornergrat 觀景火車': 11, 'Gornergrat': 11, 'Riffelsee 湖': 11,
+  'Simplon Pass': 12,
+  '米蘭 MXP 機場': 13,
+  'Galleria Vittorio Emanuele II': 14, 'Quadrilatero della Moda': 14, '米蘭市中心': 14
 };
 
 document.querySelector('.itinerary-panel').addEventListener('click', function(e) {

@@ -1,6 +1,6 @@
 # 雅典 · Zermatt 滑雪自駕旅行計劃
 
-香港出發 — 雅典 · Zermatt · 米蘭 13日互動旅行計劃網頁
+香港出發 — 雅典 · Zermatt · 米蘭 12日互動旅行計劃網頁
 
 ## 線上版本
 
@@ -24,10 +24,9 @@ git add . && git commit -m "更新內容" && git push
 
 | 日期 | 行程 |
 |------|------|
-| 11/24 (二) | 🚕 香港 → 深圳 SZX · ✈ HU7059 凌晨起飛 |
-| 11/25 (三) | 15:25 抵達雅典 · Plaka · Monastiraki · 🏨 Anthology of Athens |
-| 11/26 (四) | 🏛️ 雅典全日 — Acropolis 衛城 · Ancient Agora · 🏨 Anthology of Athens |
-| 11/27 (五) | 🚗 雅典 Day Trip — Corinth 科林斯 / Cape Sounion 等 · 🏨 Holiday Inn Athens Attica Av (機場) |
+| 11/25 (三) | 🚇 香港 → HKG · ✈ QR815 00:25 起飛（11/26 凌晨）· 多哈轉機 |
+| 11/26 (四) | ✈ QR203 DOH 07:20 → ATH ~11:20 抵達 · Plaka · Monastiraki · 🏨 Anthology of Athens |
+| 11/27 (五) | 🏛️ 雅典全日 — Acropolis · 衛城博物館 · Ancient Agora · 晚上轉住 🏨 Holiday Inn Athens Attica Av (機場) |
 | 11/28 (六) | ✈ A3660 ATH→MXP 08:35-10:10 → 🚗 Lugano 盧加諾 · 🏨 Suitenhotel Parco Paradiso |
 | 11/29 (日) | 🚗 Lugano → Interlaken 因特拉肯 → Grindelwald 格林德瓦 |
 | 11/30 (一) | 🚗 Grindelwald → Kandersteg 汽車火車 → Zermatt · 🏨 Firefly Luxury Suites |
@@ -40,15 +39,18 @@ git add . && git commit -m "更新內容" && git push
 
 ## 航班
 
-- 第一程：🚕 香港→深圳 SZX · HU7059 SZX 01:35→BRU 07:05→ATH 15:25（海南航空 · 布魯塞爾轉機）
+- 第一程：🚇 香港→HKG · ✈ QR815 HKG 00:25→DOH 04:15 · ✈ QR203 DOH 07:20→ATH ~11:20（卡塔爾航空 · 多哈轉機）
 - 第二程：ATH→MXP A3660 11/28 08:35-10:10 (Aegean A320)
 - 回程：CX234 MXP→HKG 12/6 ~11:45-06:25+1 (Cathay B777)
+- 雪票：推薦 4 天 International 國際證 (12/1–12/4) · 攻略見網頁「Zermatt 滑雪通行證攻略」
+- 雪具：推薦 Dorsaz Sport（Matterhorn Express 站旁 · 租客免費寄存）· 5 家對比表見網頁
+- 自駕路費：意大利 A8/A9 高速 MXP→Chiasso 約 €3 · 瑞士 Vignette 年票 CHF 40（邊境買，必備）· Kandersteg 汽車火車 CHF 28（週一）· Täsch 停車約 CHF 17/天 · Simplon 回程免費
 
 ## 本地文件結構
 
 ```
 zermatt26/
-├── index.html          # 桌面版
+├── index.html          # 桌面版 (地圖在上 + 行程在下)
 ├── index-mobile.html   # 手機版 (地圖上半 + 底部滑動面板)
 ├── images/             # 景點圖片 (16張)
 └── README.md
