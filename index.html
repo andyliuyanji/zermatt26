@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: -apple-system, BlinkMacSystemFont, "PingFang TC", "Noto Sans TC", "Microsoft YaHei", sans-serif; background: #f0f4f8; color: #1a202c; line-height: 1.6; }
+body { font-family: -apple-system, BlinkMacSystemFont, "PingFang TC", "Noto Sans TC", "Microsoft YaHei", sans-serif; background: #f0f4f8; color: #1a202c; line-height: 1.6; overflow-wrap: break-word; }
 
 /* Header */
 .hero { background: linear-gradient(135deg, #1e3a5f 0%, #0d5eaf 20%, #2d6a9f 50%, #4a9db5 75%, #8fc9b9 100%); color: #fff; padding: 48px 24px 40px; text-align: center; }
@@ -52,7 +52,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "PingFang TC", "Noto Sans
 .marker-hk { background: #ba0c2f; }
 
 /* Leaflet popup */
-.leaflet-popup-content { margin: 10px 14px; font-size: 0.9rem; line-height: 1.5; min-width: 220px; }
+.leaflet-popup-content { margin: 10px 14px; font-size: 0.9rem; line-height: 1.5; min-width: min(220px, calc(100vw - 60px)); }
 .leaflet-popup-content img { width: 100%; height: 130px; object-fit: cover; border-radius: 6px; margin-bottom: 8px; background: #e2e8f0; }
 .leaflet-popup-content .popup-title { font-weight: 700; font-size: 1rem; color: #1e3a5f; }
 .leaflet-popup-content .popup-subtitle { font-size: 0.8rem; color: #64748b; margin-bottom: 6px; }
@@ -96,7 +96,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "PingFang TC", "Noto Sans
 
 /* Transport overview */
 .transport-section { max-width: 1400px; margin: 0 auto; padding: 0 16px 40px; }
-.transport-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; }
+.transport-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr)); gap: 16px; }
 .transport-card { background: #fff; border-radius: 12px; padding: 20px 24px; box-shadow: 0 1px 8px rgba(0,0,0,0.06); }
 .transport-card h4 { font-size: 1rem; font-weight: 700; color: #1e3a5f; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
 .transport-card .flight-row { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid #f1f5f9; font-size: 0.88rem; }
@@ -105,7 +105,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "PingFang TC", "Noto Sans
 .transport-card .note { font-size: 0.8rem; color: #94a3b8; margin-top: 8px; }
 
 /* Day trip table */
-.daytrip-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; margin-top: 8px; }
+.daytrip-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; margin-top: 8px; display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
 .daytrip-table th { background: #f1f5f9; padding: 10px 12px; text-align: left; font-weight: 700; color: #1e3a5f; font-size: 0.8rem; border-bottom: 2px solid #e2e8f0; }
 .daytrip-table td { padding: 10px 12px; border-bottom: 1px solid #f1f5f9; vertical-align: top; }
 .daytrip-table tr:hover td { background: #f8fafc; }
@@ -668,7 +668,7 @@ markers.forEach(function(m) {
   var linkHtml = '';
   if (m.link) { linkHtml = '<a class="popup-link" href="' + m.link + '" target="_blank" rel="noopener">詳細介紹 →</a>'; }
   var popupContent = imgHtml + '<div class="popup-title">' + m.name + '</div><div class="popup-subtitle">' + m.en + '</div><p style="margin:6px 0;font-size:0.85rem;">' + m.desc + '</p>' + linkHtml;
-  var marker = L.marker([m.lat, m.lng], { icon: icon }).bindPopup(popupContent, { maxWidth: 300 }).addTo(map);
+  var marker = L.marker([m.lat, m.lng], { icon: icon }).bindPopup(popupContent, { maxWidth: Math.min(300, Math.max(180, window.innerWidth - 50)) }).addTo(map);
   marker._dayNum = m.day; marker._id = m.id;
   markerLayers.push(marker);
 });

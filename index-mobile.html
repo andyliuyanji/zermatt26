@@ -8,10 +8,10 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html, body { height: 100%; overflow: hidden; }
-body { font-family: -apple-system, BlinkMacSystemFont, "PingFang TC", "Noto Sans TC", "Microsoft YaHei", sans-serif; color: #1a202c; line-height: 1.6; background: #e8ecf1; }
+html, body { height: auto; overflow: auto; }
+body { font-family: -apple-system, BlinkMacSystemFont, "PingFang TC", "Noto Sans TC", "Microsoft YaHei", sans-serif; color: #1a202c; line-height: 1.6; background: #e8ecf1; overflow-wrap: break-word; }
 
-.main-layout { display: flex; flex-direction: column; height: 100vh; width: 100%; max-width: 100%; margin: 0; padding: 0; }
+.main-layout { display: block; height: auto; width: 100%; max-width: 100%; margin: 0; padding: 0; }
 
 .hero { background: linear-gradient(135deg, #1e3a5f 0%, #0d5eaf 20%, #2d6a9f 50%, #4a9db5 75%, #8fc9b9 100%); color: #fff; padding: 10px 14px 12px; text-align: center; flex-shrink: 0; }
 .hero h1 { font-size: 1.05rem; font-weight: 800; margin-bottom: 2px; letter-spacing: -0.3px; }
@@ -21,23 +21,15 @@ body { font-family: -apple-system, BlinkMacSystemFont, "PingFang TC", "Noto Sans
 
 .quick-stats { display: none; }
 
-.map-panel { position: relative; height: 43vh; flex-shrink: 0; }
+.map-panel { position: relative; height: 50vh; min-height: 320px; }
 .map-panel .panel-label { background: #fff; padding: 5px 10px; font-weight: 700; font-size: 0.75rem; color: #1e3a5f; border-bottom: 1px solid #e2e8f0; display: flex; align-items: center; gap: 6px; }
 #map { height: calc(100% - 30px); border: none; z-index: 1; }
-
-.divider { height: 16px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; cursor: row-resize; touch-action: none; -webkit-tap-highlight-color: transparent; z-index: 20; }
-.divider .grip { width: 42px; height: 5px; background: #94a3b8; border-radius: 3px; transition: background 0.15s, width 0.15s; }
-.divider:active .grip, .divider.dragging .grip { width: 56px; background: #64748b; }
 
 .map-legend { position: absolute; bottom: 6px; right: 6px; z-index: 1000; background: rgba(255,255,255,0.92); padding: 4px 8px; border-radius: 6px; box-shadow: 0 1px 6px rgba(0,0,0,0.12); font-size: 0.62rem; line-height: 1.7; }
 .legend-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 4px; vertical-align: middle; }
 .legend-line { display: inline-block; width: 18px; height: 2px; margin-right: 4px; vertical-align: middle; border-radius: 1px; }
 
-.bottom-sheet { flex: 1; display: flex; flex-direction: column; background: #f0f4f8; border-radius: 18px 18px 0 0; margin-top: -14px; box-shadow: 0 -4px 20px rgba(0,0,0,0.12); position: relative; z-index: 10; min-height: 0; }
-.sheet-handle { display: flex; justify-content: center; padding: 8px 0 2px; flex-shrink: 0; }
-.sheet-handle span { display: block; width: 36px; height: 4px; background: #cbd5e1; border-radius: 2px; }
-
-.itinerary-panel { flex: 1; overflow-y: auto; padding: 6px 14px 24px; -webkit-overflow-scrolling: touch; }
+.itinerary-panel { padding: 6px 14px 24px; }
 .section-title { font-size: 1rem; font-weight: 700; color: #1e3a5f; margin: 16px 0 10px; display: flex; align-items: center; gap: 6px; }
 .section-title i { color: #2d6a9f; }
 
@@ -76,7 +68,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "PingFang TC", "Noto Sans
 .transport-card .note { font-size: 0.72rem; color: #94a3b8; margin-top: 6px; }
 
 /* Day trip table (mobile) */
-.daytrip-table { width: 100%; border-collapse: collapse; font-size: 0.68rem; margin-top: 4px; }
+.daytrip-table { width: 100%; border-collapse: collapse; font-size: 0.68rem; margin-top: 4px; display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
 .daytrip-table th { background: #f1f5f9; padding: 6px 6px; text-align: left; font-weight: 700; color: #1e3a5f; font-size: 0.65rem; border-bottom: 1px solid #e2e8f0; }
 .daytrip-table td { padding: 6px 6px; border-bottom: 1px solid #f1f5f9; vertical-align: top; font-size: 0.68rem; }
 .daytrip-table .feasible { color: #16a34a; font-weight: 700; }
@@ -86,7 +78,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "PingFang TC", "Noto Sans
 footer { text-align: center; padding: 16px 12px; color: #94a3b8; font-size: 0.68rem; border-top: 1px solid #e2e8f0; flex-shrink: 0; }
 footer a { color: #2d6a9f; text-decoration: none; }
 
-.leaflet-popup-content { margin: 5px 7px; font-size: 0.7rem; line-height: 1.4; min-width: 130px; max-width: 170px; }
+.leaflet-popup-content { margin: 5px 7px; font-size: 0.7rem; line-height: 1.4; min-width: 130px; max-width: min(240px, calc(100vw - 50px)); }
 .leaflet-popup-content img { width: 100%; height: 62px; object-fit: cover; border-radius: 4px; margin-bottom: 4px; background: #e2e8f0; }
 .leaflet-popup-content .popup-title { font-weight: 700; font-size: 0.76rem; color: #1e3a5f; }
 .leaflet-popup-content .popup-subtitle { font-size: 0.64rem; color: #64748b; margin-bottom: 2px; }
@@ -94,7 +86,6 @@ footer a { color: #2d6a9f; text-decoration: none; }
 .popup-img-fallback { display: flex; align-items: center; justify-content: center; width: 100%; height: 62px; background: #e2e8f0; border-radius: 4px; margin-bottom: 4px; font-size: 1.3rem; color: #94a3b8; }
 
 @media (min-width: 768px) {
-  html, body { height: auto; overflow: auto; }
   body { background: #f0f4f8; }
   .main-layout { display: block; height: auto; max-width: 1400px; margin: 16px auto 0; padding: 0 16px; }
   .hero { padding: 32px 24px 28px; }
@@ -109,9 +100,6 @@ footer a { color: #2d6a9f; text-decoration: none; }
   .map-panel .panel-label { padding: 8px 14px; font-size: 0.85rem; border-radius: 8px 8px 0 0; }
   #map { height: calc(100% - 37px); border-radius: 0 0 8px 8px; border: 1px solid #e2e8f0; }
   .map-legend { bottom: 16px; right: 16px; padding: 8px 12px; font-size: 0.72rem; line-height: 1.9; }
-  .bottom-sheet { flex: none; background: transparent; border-radius: 0; margin-top: 0; box-shadow: none; }
-  .sheet-handle { display: none; }
-  .divider { display: none; }
   .itinerary-panel { padding: 20px 0 40px; max-width: 1000px; margin: 0 auto; overflow-y: visible; }
   .section-title { font-size: 1.2rem; margin: 24px 0 14px; }
   .day-card { padding: 16px 20px; margin-bottom: 12px; border-radius: 10px; }
@@ -120,13 +108,13 @@ footer a { color: #2d6a9f; text-decoration: none; }
   .day-date { font-size: 1rem; }
   .day-activities li { font-size: 0.85rem; padding: 4px 0; }
   .day-transport { font-size: 0.82rem; }
-  .transport-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 12px; }
+  .transport-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 12px; }
   .transport-card { padding: 16px 20px; }
   .daytrip-table { font-size: 0.82rem; }
   .daytrip-table th { font-size: 0.78rem; padding: 8px 10px; }
   .daytrip-table td { font-size: 0.82rem; padding: 8px 10px; }
   footer { padding: 24px 16px; font-size: 0.75rem; }
-  .leaflet-popup-content { margin: 10px 14px; font-size: 0.85rem; min-width: 220px; }
+  .leaflet-popup-content { margin: 10px 14px; font-size: 0.85rem; min-width: min(220px, calc(100vw - 60px)); }
   .leaflet-popup-content img { height: 120px; }
 }
 
@@ -188,12 +176,7 @@ footer a { color: #2d6a9f; text-decoration: none; }
     </div>
   </div>
 
-  <div class="divider"><div class="grip"></div></div>
-
-  <!-- Bottom sheet -->
-    <div class="bottom-sheet">
-      <div class="sheet-handle"><span></span></div>
-    <!-- Itinerary panel -->
+  <!-- Itinerary panel -->
   <div class="itinerary-panel">
     <div class="section-title"><i class="fa-solid fa-calendar-days"></i> 每日行程</div>
 
@@ -617,7 +600,6 @@ footer a { color: #2d6a9f; text-decoration: none; }
   <p style="margin-top: 6px;">Made for personal travel planning · 2026</p>
 </footer>
 </div>
-</div>
 
 <!-- Leaflet JS -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -697,7 +679,7 @@ markers.forEach(function(m) {
   var linkHtml = '';
   if (m.link) { linkHtml = '<a class="popup-link" href="' + m.link + '" target="_blank" rel="noopener">詳細介紹 →</a>'; }
   var popupContent = imgHtml + '<div class="popup-title">' + m.name + '</div><div class="popup-subtitle">' + m.en + '</div><p style="margin:6px 0;font-size:0.85rem;">' + m.desc + '</p>' + linkHtml;
-  var marker = L.marker([m.lat, m.lng], { icon: icon }).bindPopup(popupContent, { maxWidth: 300 }).addTo(map);
+  var marker = L.marker([m.lat, m.lng], { icon: icon }).bindPopup(popupContent, { maxWidth: Math.min(300, Math.max(180, window.innerWidth - 50)) }).addTo(map);
   marker._dayNum = m.day; marker._id = m.id;
   markerLayers.push(marker);
 });
@@ -833,46 +815,6 @@ document.querySelectorAll('.day-card').forEach(function(card) {
   });
 });
 
-/* ===== DRAGGABLE DIVIDER ===== */
-(function() {
-  var divider = document.querySelector('.divider');
-  var mapPanel = document.querySelector('.map-panel');
-  if (!divider || !mapPanel) return;
-
-  var startY, startHeight, dragging = false;
-
-  function onStart(e) {
-    dragging = true;
-    divider.classList.add('dragging');
-    startY = e.touches ? e.touches[0].clientY : e.clientY;
-    startHeight = mapPanel.offsetHeight;
-    e.preventDefault();
-  }
-
-  function onMove(e) {
-    if (!dragging) return;
-    var y = e.touches ? e.touches[0].clientY : e.clientY;
-    var dy = y - startY;
-    var newH = startHeight + dy;
-    var vh = window.innerHeight * 0.01;
-    var minH = 18 * vh;
-    var maxH = 72 * vh;
-    newH = Math.max(minH, Math.min(maxH, newH));
-    mapPanel.style.height = newH + 'px';
-  }
-
-  function onEnd() {
-    dragging = false;
-    divider.classList.remove('dragging');
-  }
-
-  divider.addEventListener('touchstart', onStart, { passive: false });
-  divider.addEventListener('mousedown', onStart);
-  document.addEventListener('touchmove', onMove, { passive: false });
-  document.addEventListener('mousemove', onMove);
-  document.addEventListener('touchend', onEnd);
-  document.addEventListener('mouseup', onEnd);
-})();
 </script>
 </body>
 </html>
